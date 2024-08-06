@@ -30,13 +30,14 @@ else
 endif
 
 $(TEST_TARGET): $(TEST_OBJS)
+	mkdir -p $(dir $@)
 	g++ $(TEST_OBJS) -o $@ $(TEST_FLAGS)
 
 $(BUILD)/%.o: $(SRC)/%.cpp
 	mkdir -p $(dir $@)
 	g++ $(COMPILE_FLAGS) -o $@ $<
 
-$(BUILD)/%.o: $(TEST)/%.cpp
+$(BUILD_TEST)/%.o: $(TEST)/%.cpp
 	mkdir -p $(dir $@)
 	g++ $(COMPILE_FLAGS) -o $@ $<
 
