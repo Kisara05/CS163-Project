@@ -36,11 +36,12 @@ $(BUILD)/%.o: $(SRC)/%.cpp
 	mkdir -p $(dir $@)
 	g++ $(COMPILE_FLAGS) -o $@ $<
 
-$(BUILD_TEST)/%.o: $(TEST)/%.cpp
+$(BUILD)/%.o: $(TEST)/%.cpp
 	mkdir -p $(dir $@)
 	g++ $(COMPILE_FLAGS) -o $@ $<
 
 .PHONY: clean test
+
 clean:
 	rm -rf $(BUILD)
 	rm -f $(TARGET)
