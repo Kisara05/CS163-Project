@@ -14,8 +14,8 @@ TEST_OBJS := $(subst $(TEST)/,$(BUILD_TEST)/,$(addsuffix .o,$(basename $(TEST_SR
 
 
 OS := $(shell uname -s)
-COMPILE_FLAGS := -std=c++14 -Iinclude -c
-TEST_FLAGS := -lgtest -lgtest_main -pthread
+COMPILE_FLAGS := -std=c++17 -Iinclude -c
+TEST_FLAGS := -lgtest -lgtest_main -pthread -g
 
 
 all: $(TARGET)
