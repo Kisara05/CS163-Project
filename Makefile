@@ -44,6 +44,7 @@ $(BUILD)/%.o: $(TEST)/%.cpp
 
 clean:
 	rm -rf $(BUILD)
+	rm -rf $(BUILD_TEST)
 	rm -f $(TARGET)
 	rm -f $(TEST_TARGET)
 
