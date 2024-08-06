@@ -1,29 +1,45 @@
 #ifndef TRIE_H
 #define TRIE_H
+#include "Data.h"
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 class Trie {
 public:
-  enum class Result { SUCCESS, NOT_FOUND, ALREADY_EXISTS };
+  enum class Result {
+    SUCCESS = 20,
+    NOT_FOUND,
+    ALREADY_EXISTS,
+    FAILED,
+    EMPTY_STRING
+  };
 
 private:
   struct Node {
-    std::unordered_map<char, Node *> children;
-    bool isEnd;
     Node();
-    Node(bool isEnd);
+    Node(Data *data, bool isEnd = false);
     ~Node();
+
+    std::unordered_map<char, Node *> children;
+    Data *data;
+    bool isEnd;
   };
 
 public:
   Trie();
   ~Trie();
 
+  Result insert(Data *data);
   Result insert(std::string word);
   Result remove(std::string word);
-  Result search(std::string word);
-  // bool startsWith(std::string prefix);
+  Result contains(std::string word);
+  Data *find(std::string word);
+  void clear();
+  std::vector<Data *> startsWith(std::string prefix);
+
+private:
+  Result insert(std::string word, Data *data);
 
 private:
   Node *root;
