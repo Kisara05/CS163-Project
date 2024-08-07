@@ -1,5 +1,13 @@
 #include "Core.h"
 
+Core::Word::Word(const std::string& str) : orgStr(str), str(convertToNonAccentVN(str)) {
+}
+
+bool Core::Word::isDeleted() {
+    //delete this string
+    return string == "";
+}
+
 void Core::addFavorite(Word* word) {
     if (word->IsFavorite == false) {
         word->IsFavorite = true;

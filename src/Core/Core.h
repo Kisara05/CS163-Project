@@ -9,6 +9,15 @@ public:
 
     struct Word;
 
+    struct Word {
+        std::string orginalString;
+        std::string string;
+        std::vector<Definition*> defs;
+        bool IsFavorite{ false };
+        Word(const std::string& str);
+
+        bool isDeleted();
+    };
 
     void addFavorite(Word* word);
     void removeFavorite(Word* word);
