@@ -23,6 +23,7 @@ public:
     void removeFavorite(Word* word);
     bool isFavorite(Word* word);
 
+    Word* addWord(std::string wordToBeAdded);
 
 private:
 

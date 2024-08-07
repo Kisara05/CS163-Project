@@ -32,3 +32,15 @@ bool Core::isFavorite(Word* word) {
     // Check if is favorite
     return word->IsFavorite;
 }
+
+Core::Word* Core::addWord(std::string wordToBeAdded) {
+    Word* newWord = new Word(wordToBeAdded);
+    if (mWordSet.insert(newWord) == Trie<Word*>::StatusID::SUCCESS) {
+        mWordCollection.push_back(newWord);
+    }
+    else {
+        delete newWord;
+        newWord = nullptr;
+    }
+    return newWord;
+}
