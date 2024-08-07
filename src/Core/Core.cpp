@@ -8,6 +8,15 @@ bool Core::Word::isDeleted() {
     return string == "";
 }
 
+Core::Word* Core::getRandomWord() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dist(0, mWordCollection.size() - 1);
+    int randomID = dist(gen);
+    return mWordCollection[randomID];
+}
+
+
 void Core::addFavorite(Word* word) {
     if (word->IsFavorite == false) {
         word->IsFavorite = true;

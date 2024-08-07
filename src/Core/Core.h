@@ -2,6 +2,7 @@
 #define CORE_CORE_H
 
 #include "Trie.h"
+#include <random>
 
 class Core {
 public:
@@ -19,6 +20,8 @@ public:
         bool isDeleted();
     };
 
+    Word *getRandomWord();
+
     void addFavorite(Word* word);
     void removeFavorite(Word* word);
     bool isFavorite(Word* word);
@@ -26,5 +29,5 @@ public:
     Word* addWord(std::string wordToBeAdded);
 
 private:
-
+    std::vector<Word *> mWordCollection;
 #endif // CORE_CORE_H
