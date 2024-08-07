@@ -10,6 +10,18 @@ public:
 
     struct Word;
 
+    struct Definition {
+        std::string orgStr;
+        std::string str;
+        Word *word;
+
+        int rating;
+
+        Definition(const std::string &str);
+
+        bool isDeleted();
+    };
+
     struct Word {
         std::string orginalString;
         std::string string;
@@ -30,4 +42,6 @@ public:
 
 private:
     std::vector<Word *> mWordCollection;
+    
+};
 #endif // CORE_CORE_H
