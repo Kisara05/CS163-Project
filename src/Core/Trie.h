@@ -46,7 +46,6 @@ private:
 private:
   Node *root;
 };
+#include "Trie.cpp"
 
 #endif // TRIE_H
-
-#include "Trie.cpp"
