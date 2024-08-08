@@ -58,6 +58,7 @@ private:
     // Random tasks: 
     std::vector<Word *> wordCollection;
     std::vector<Definition *> mDefCollection;
+    std::vector<DefWord *> mDefWordCollection;
     // End of random tasks
     Trie<Word*> wordSet;
     Trie<DefWord*> defWordSet;
