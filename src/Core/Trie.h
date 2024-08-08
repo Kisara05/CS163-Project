@@ -48,3 +48,5 @@ private:
 };
 
 #endif // TRIE_H
+
+#include "Trie.cpp"
