@@ -3,6 +3,16 @@
 Core::Word::Word(const std::string& str) : orgStr(str), str(convertToNonAccentVN(str)) {
 }
 
+Core::Core(const std::string& inputDefCharSet, const std::string& inputSpecifier,
+    const std::string& inputWordCharSet, const std::string& inputDataName)
+    : dataSpecifier(inputSpecifier)
+    , dataName(inputDataName)
+    , defWordSet(inputDefCharSet)
+    , wordSet(inputWordCharSet) {
+    std::cout << "Now loading: " << dataSpecifier << "..." << std::endl;
+    loadFromFile();
+}
+
 bool Core::Word::isDeleted() {
     //delete this string
     return string == "";
@@ -58,14 +68,14 @@ Core::Word* Core::addWord(std::string wordToBeAdded) {
     return newWord;
 }
 
-Core::Core(const std::string& inputDefCharSet, const std::string& inputSpecifier,
-    const std::string& inputWordCharSet, const std::string& inputDataName
-    : dataSpecifier(inputSpecifier)
-    , dataName(inputDataName)
-    , defWordSet(inputDefCharSet)
-    , wordSet(inputWordCharSet) {
-    std::cout << "Now loading: " << dataSpecifier << "..." << std::endl;
-    loadFromFile();
+void Core::removeWord(Word* word) {
+    if (word != nullptr) {
+        wordSet.remove(word -> str);
+        for (int i = 0; i < word->defs.size(); i++) {
+            word -> defs[i] -> str = "";
+        }
+        word -> str = "";
+    }
 }
 
 Core::~Core() {

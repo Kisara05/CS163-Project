@@ -36,6 +36,7 @@ public:
 
     Core(const std::string& dataName, const std::string& specifier,
         const std::string& wordCharSet, const std::string& defCharSet);
+    ~Core();
 
     Word *getRandomWord();
 
@@ -45,6 +46,7 @@ public:
 
     Word* addWord(std::string wordToBeAdded);
     std::string getDataName();
+    void removeWord(Word* word);
 
 private:
     std::vector<Word *> wordCollection;
