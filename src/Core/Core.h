@@ -35,6 +35,12 @@ public:
         bool isDeleted();
     };
 
+    struct DefWord {
+        std::string str;
+        std::vector<Definition *> defs;
+        DefWord(const std::string &str);
+    };
+
     Core(const std::string& dataName, const std::string& specifier,
         const std::string& wordCharSet, const std::string& defCharSet);
     ~Core();
