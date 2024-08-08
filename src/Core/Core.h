@@ -44,9 +44,11 @@ public:
     Core(const std::string& dataName, const std::string& specifier,
         const std::string& wordCharSet, const std::string& defCharSet);
     ~Core();
-
+    std::vector<Word *> searchKeyword(const std::string &inputString);
+    std::vector<Word *> searchDefinition(const std::string &inputString);
     Word *getRandomWord();
-
+    Definition *addDefinition(std::string defString, Word *word);
+    void editDefinition(Definition *def, const std::string &newDef);
     void addFavorite(Word* word);
     void removeFavorite(Word* word);
     bool isFavorite(Word* word);
