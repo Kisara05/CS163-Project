@@ -5,6 +5,7 @@
 #include <random>
 #include <vector>
 #include <string>
+#include <array>
 
 class Core {
 public:
@@ -44,13 +45,20 @@ public:
     void removeFavorite(Word* word);
     bool isFavorite(Word* word);
 
+    // pair::first is the question, pair::second [1..4] are choices, [0] is the
+    // answer
+    std::pair<Word *, std::array<Definition *, 5>> getWordQuiz();
+    std::pair<Definition *, std::array<Word *, 5>> getDefinitionQuiz();
+
     Word* addWord(std::string wordToBeAdded);
     std::string getDataName();
     void removeWord(Word* word);
 
 private:
+    // Random tasks: 
     std::vector<Word *> wordCollection;
-
+    std::vector<Definition *> mDefCollection;
+    // End of random tasks
     Trie<Word*> wordSet;
     Trie<DefWord*> defWordSet;
 
