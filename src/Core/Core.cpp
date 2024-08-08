@@ -150,3 +150,46 @@ Core::~Core() {
         delete ptr;
     }
 }
+vector<Core::Word*> Core::searchDefinition(const string& inputString) {
+    string normalizedString = normalize(inputString);
+    vector<Definition*> defResults = mDefCollection;
+    equivalentFilter1(defResults, normalizedString);
+    equivalentFilter2(defResults, normalizedString);
+    vector<Word*> ret;
+    for (vector<Definition*>::iterator defPtr = defResults.begin(); defPtr != defResults.end(); ++defPtr) {
+        if ((*defPtr)->isDeleted()) continue;
+        bool isDuplicated = false;
+        for (vector<Word*>::iterator wordPtr = ret.begin(); wordPtr != ret.end(); ++wordPtr) {
+            if ((*defPtr)->word == *wordPtr) {
+                isDuplicated = true;
+                break;
+            }
+        }
+        if (!isDuplicated) ret.push_back((*defPtr)->word);
+        if (ret.size() == RESULT_LIMIT) break;
+    }
+    return ret;
+}
+Core::Definition* Core::addDefinition(std::string defString, Word* word) {
+    Definition* newDef = new Definition(defString);
+    newDef->word = word;
+    word->defs.push_back(newDef);
+    mDefCollection.push_back(newDef);
+
+    for (vector<string>::iterator defWordStr = split(newDef->str, ' ').begin(); defWordStr != split(newDef->str, ' ').end(); ++defWordStr) {
+        DefWord* myDefWord;
+        if (defWordStr.size() <= 2) continue;
+        if (mDefWordSet.getData(defWordStr, myDefWord) == Trie<DefWord*>::StatusID::NOT_FOUND) {
+            myDefWord = new DefWord(defWordStr);
+            mDefWordCollection.push_back(myDefWord);
+            mDefWordSet.insert(myDefWord);
+        }
+        myDefWord->defs.push_back(newDef);
+    }
+    return newDef;
+}
+
+void Core::editDefinition(Core::Definition* def, const std::string& newDef) {
+    def->str = "";
+    addDefinition(newDef, def->word);
+}
