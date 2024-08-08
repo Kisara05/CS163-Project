@@ -67,12 +67,16 @@ public:
 private:
     // Random tasks: 
     std::vector<Word *> wordCollection;
-    std::vector<Definition *> mDefCollection;
-    std::vector<DefWord *> mDefWordCollection;
+    std::vector<Definition *> defCollection;
+    std::vector<DefWord *> defWordCollection;
     // End of random tasks
+
+    std::vector<Word *> history;
 
     Trie<Word> wordSet;
     Trie<DefWord> defWordSet;
+
+    std::string mDataSpecifier;
 
     std::string dataName;
     std::string dataSpecifier;

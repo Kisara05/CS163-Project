@@ -61,9 +61,9 @@ std::pair<Core::Definition*, std::array<Core::Word*, 5>> Core::getDefinitionQuiz
     // Get a definition.
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist(0, mDefCollection.size() - 1);
+    std::uniform_int_distribution<> dist(0, defCollection.size() - 1);
     int randomID = dist(gen);
-    Definition* question = mDefCollection[randomID];
+    Definition* question = defCollection[randomID];
     // Create array of choices. Choice[0] is the answer.
     Word* choices[5];
     choices[0] = question->word;
@@ -89,18 +89,18 @@ std::pair<Core::Definition*, std::array<Core::Word*, 5>> Core::getDefinitionQuiz
 void Core::resetDefault() {
     std::string dataPath = "data/dictionary-data/" + mDataSpecifier;
 
-    mWordSet.clear();
-    mDefWordSet.clear();
-    for (auto ptr : mWordCollection) {
+    wordSet.clear();
+    defWordSet.clear();
+    for (auto ptr : wordCollection) {
         delete ptr;
     }
-    mWordCollection.clear();
-    for (auto ptr : mDefCollection) {
+    wordCollection.clear();
+    for (auto ptr : defCollection) {
         delete ptr;
     }
-    mDefCollection.clear();
+    defCollection.clear();
 
-    mHistory.clear();
+    history.clear();
     loadWordLocal(dataPath);
 }
 
