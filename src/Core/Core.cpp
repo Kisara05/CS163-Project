@@ -85,6 +85,25 @@ std::pair<Core::Definition*, std::array<Core::Word*, 5>> Core::getDefinitionQuiz
 
 // End of Random tasks
 
+// Reset to original
+void Core::resetDefault() {
+    std::string dataPath = "data/dictionary-data/" + mDataSpecifier;
+
+    mWordSet.clear();
+    mDefWordSet.clear();
+    for (auto ptr : mWordCollection) {
+        delete ptr;
+    }
+    mWordCollection.clear();
+    for (auto ptr : mDefCollection) {
+        delete ptr;
+    }
+    mDefCollection.clear();
+
+    mHistory.clear();
+    loadWordLocal(dataPath);
+}
+
 void Core::addFavorite(Word* word) {
     if (word->IsFavorite == false) {
         word->IsFavorite = true;

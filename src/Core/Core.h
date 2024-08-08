@@ -62,6 +62,8 @@ public:
     std::string getDataName();
     void removeWord(Word* word);
 
+    void resetDefault();
+
 private:
     // Random tasks: 
     std::vector<Word *> wordCollection;
