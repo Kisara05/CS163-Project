@@ -14,7 +14,7 @@ public:
     struct Word;
 
     struct Definition {
-        std::string orgStr;
+        std::string originalString;
         std::string str;
         Word *word;
 
@@ -60,11 +60,15 @@ private:
     std::vector<Definition *> mDefCollection;
     std::vector<DefWord *> mDefWordCollection;
     // End of random tasks
-    Trie<Word*> wordSet;
-    Trie<DefWord*> defWordSet;
+
+    Trie wordSet;
+    Trie defWordSet;
 
     std::string dataName;
     std::string dataSpecifier;
+
+    void loadFromFile();
+    void saveToFile();
     
 };
 #endif // CORE_CORE_H
