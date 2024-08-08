@@ -1,11 +1,10 @@
 #include "Core.h"
 
-Core::Word::Word(const std::string& str) : orgStr(str), str(convertToNonAccentVN(str)) {
+Core::Word::Word(const std::string& str) : orginalString(str), string(convertToNonAccentVN(str)) {
 }
 
 Core::Core(const std::string& inputDefCharSet, const std::string& inputSpecifier,
-    const std::string& inputWordCharSet, const std::string& inputDataName)
-    : dataSpecifier(inputSpecifier)
+    const std::string& inputWordCharSet, const std::string& inputDataName) : dataSpecifier(inputSpecifier)
     , dataName(inputDataName)
     , defWordSet(inputDefCharSet)
     , wordSet(inputWordCharSet) {
@@ -129,11 +128,11 @@ Core::Word* Core::addWord(std::string wordToBeAdded) {
 
 void Core::removeWord(Word* word) {
     if (word != nullptr) {
-        wordSet.remove(word -> str);
+        wordSet.remove(word -> string);
         for (int i = 0; i < word -> defs.size(); i++) {
             word -> defs[i] -> str = "";
         }
-        word -> str = "";
+        word -> string = "";
     }
 }
 
