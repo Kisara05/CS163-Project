@@ -3,6 +3,8 @@
 
 #include "Trie.h"
 #include <random>
+#include <vector>
+#include <string>
 
 class Core {
 public:
@@ -32,6 +34,9 @@ public:
         bool isDeleted();
     };
 
+    Core(const std::string& dataName, const std::string& specifier,
+        const std::string& wordCharSet, const std::string& defCharSet);
+
     Word *getRandomWord();
 
     void addFavorite(Word* word);
@@ -39,9 +44,16 @@ public:
     bool isFavorite(Word* word);
 
     Word* addWord(std::string wordToBeAdded);
+    std::string getDataName();
 
 private:
-    std::vector<Word *> mWordCollection;
+    std::vector<Word *> wordCollection;
+
+    Trie<Word*> wordSet;
+    Trie<DefWord*> defWordSet;
+
+    std::string dataName;
+    std::string dataSpecifier;
     
 };
 #endif // CORE_CORE_H
