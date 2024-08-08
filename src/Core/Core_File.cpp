@@ -111,15 +111,38 @@ void Core::loadFromFile() {
             std::getline(localDefinitionsFile, word, '\t');
             std::getline(localDefinitionsFile, definition, '\n');
 
-            Word* wordObj = new Word(word);
-            auto maybeData = wordSet.find(word);
+            Word* wordObj = wordSet.find(word);
 
-            if (maybeData == nullptr) {
-                wordCollection.push_back(wordObj);
-                wordSet.insert(word);
-                // TODO: Add definition
-            } else {
-                // TODO: Add definition to existing word
+            if (wordObj == nullptr) {
+                wordObj = new Word(word);
+                wordSet.insert(wordObj);
+            }
+
+            auto defObj = new Definition(definition);
+
+            defObj->word = wordObj;
+            wordObj->defs.push_back(defObj);
+            mDefCollection.push_back(defObj);
+
+            size_t prevPos = 0, pos = 0;
+            std::string defWord;
+
+            while ((pos = definition.find(' ')) != std::string::npos) {
+                size_t len = pos - prevPos;
+
+                if (len <= 2) {
+                    prevPos = pos;
+                    continue;
+                }
+
+                defWord = definition.substr(prevPos, len);
+
+                auto defWordObj = new DefWord(defWord);
+
+                defWordObj->defs.push_back(defObj);
+                mDefWordCollection.push_back(defWordObj);
+                defWordSet.insert(defWordObj);
+                prevPos = pos;
             }
         }
 
@@ -136,9 +159,10 @@ void Core::loadFromFile() {
 
             if (maybeData == nullptr) {
                 std::cout << "[WARN] Favorite word not found in dictionary: " << line;
+                continue;
             }
 
-            // Add favorite.
+            addFavorite(maybeData);
         }
 
         favoritesFile.close();
@@ -150,7 +174,14 @@ void Core::loadFromFile() {
         std::string line;
 
         while (std::getline(historyFile, line, '\n')) {
-            // Do something about it
+            auto maybeData = wordSet.find(line);
+
+            if (maybeData == nullptr) {
+                std::cout << "[WARN] History word not found in dictionary: " << line;
+                continue;
+            }
+
+            
         }
 
         historyFile.close();

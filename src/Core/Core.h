@@ -69,8 +69,8 @@ private:
     std::vector<DefWord *> mDefWordCollection;
     // End of random tasks
 
-    Trie wordSet;
-    Trie defWordSet;
+    Trie<Word> wordSet;
+    Trie<DefWord> defWordSet;
 
     std::string dataName;
     std::string dataSpecifier;
