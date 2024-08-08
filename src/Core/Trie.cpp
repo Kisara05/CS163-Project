@@ -1,20 +1,30 @@
 #include "Trie.h"
 #include <functional>
 
-Trie::Node::Node() : data(nullptr), isEnd(false) {}
-Trie::Node::Node(Data *data, bool isEnd) : data(data), isEnd(isEnd) {}
-Trie::Node::~Node() {
+TRIE_TEMPLATE
+Trie<T>::Node::Node() : data(nullptr), isEnd(false) {}
+
+TRIE_TEMPLATE
+Trie<T>::Node::Node(T *data, bool isEnd) : data(data), isEnd(isEnd) {}
+
+TRIE_TEMPLATE
+Trie<T>::Node::~Node() {
   if (data)
     delete data;
-  // children.clear();
+  children.clear();
 }
-Trie::Trie() : root(new Node()) {}
-Trie::~Trie() {
+
+TRIE_TEMPLATE
+Trie<T>::Trie() : root(new Node()) {}
+
+TRIE_TEMPLATE
+Trie<T>::~Trie() {
   if (root)
     delete root;
 }
 
-Trie::Result Trie::insert(Data *data) {
+TRIE_TEMPLATE
+typename Trie<T>::Result Trie<T>::insert(T *data) {
   if (!data)
     return Trie::Result::FAILED;
   std::string word = data->getWord();
@@ -23,11 +33,13 @@ Trie::Result Trie::insert(Data *data) {
   return insert(word, data);
 }
 
-Trie::Result Trie::insert(std::string word) {
-  return insert(word, new Data(word));
+TRIE_TEMPLATE
+typename Trie<T>::Result Trie<T>::insert(std::string word) {
+  return insert(word, new T(word));
 }
 
-Trie::Result Trie::insert(std::string word, Data *data) {
+TRIE_TEMPLATE
+typename Trie<T>::Result Trie<T>::insert(std::string word, T *data) {
   if (word == "")
     return Trie::Result::EMPTY_STRING;
   Node *current = root;
@@ -45,7 +57,8 @@ Trie::Result Trie::insert(std::string word, Data *data) {
   return Trie::Result::SUCCESS;
 }
 
-Trie::Result Trie::remove(std::string word) {
+TRIE_TEMPLATE
+typename Trie<T>::Result Trie<T>::remove(std::string word) {
   if (word == "")
     return Trie::Result::EMPTY_STRING;
   Node *current = root;
@@ -64,7 +77,8 @@ Trie::Result Trie::remove(std::string word) {
   return Trie::Result::SUCCESS;
 }
 
-Trie::Result Trie::contains(std::string word) {
+TRIE_TEMPLATE
+typename Trie<T>::Result Trie<T>::contains(std::string word) {
   if (word == "")
     return Trie::Result::EMPTY_STRING;
   Node *current = root;
@@ -77,7 +91,8 @@ Trie::Result Trie::contains(std::string word) {
   return current->isEnd ? Trie::Result::SUCCESS : Trie::Result::NOT_FOUND;
 }
 
-Data *Trie::find(std::string word) {
+TRIE_TEMPLATE
+T *Trie<T>::find(std::string word) {
   Node *current = root;
   for (char c : word) {
     if (current->children.count(c) == 0) {
@@ -88,10 +103,11 @@ Data *Trie::find(std::string word) {
   return current->data;
 }
 
-std::vector<Data *> Trie::startsWith(std::string prefix) {
+TRIE_TEMPLATE
+std::vector<T *> Trie<T>::startsWith(std::string prefix) {
   if (prefix == "")
     return {};
-  std::vector<Data *> result;
+  std::vector<T *> result;
   Node *current = root;
   for (char c : prefix) {
     if (current->children.count(c) == 0) {
@@ -111,7 +127,8 @@ std::vector<Data *> Trie::startsWith(std::string prefix) {
   return result;
 }
 
-void Trie::clear() {
+TRIE_TEMPLATE
+void Trie<T>::clear() {
   if (root)
     delete root;
   root = new Node();

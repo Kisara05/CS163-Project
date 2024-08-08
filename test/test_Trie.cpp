@@ -6,14 +6,14 @@
 #include "gtest/gtest.h"
 #include <algorithm>
 
-#define SC Trie::Result::SUCCESS
-#define NF Trie::Result::NOT_FOUND
-#define AE Trie::Result::ALREADY_EXISTS
-#define E Trie::Result::EMPTY_STRING
-#define F Trie::Result::FAILED
+#define SC Trie<Data>::Result::SUCCESS
+#define NF Trie<Data>::Result::NOT_FOUND
+#define AE Trie<Data>::Result::ALREADY_EXISTS
+#define E Trie<Data>::Result::EMPTY_STRING
+#define F Trie<Data>::Result::FAILED
 
 TEST(TrieTest, InsertAndContains) {
-  Trie trie;
+  Trie<Data> trie;
 
   // Test with normal string
   ASSERT_EQ(trie.insert("hello"), SC);
@@ -31,7 +31,7 @@ TEST(TrieTest, InsertAndContains) {
 }
 
 TEST(TrieTest, Remove) {
-  Trie trie;
+  Trie<Data> trie;
 
   // Test with normal string
   ASSERT_EQ(trie.insert("hello"), SC);
@@ -52,7 +52,7 @@ TEST(TrieTest, Remove) {
 
 TEST(TrieTest, LARGE_TEST_CASE) {
 
-  Trie trie;
+  Trie<Data> trie;
 
   // Insert and remove
   for (int i = 1; i <= 10000; i++) {
@@ -67,7 +67,7 @@ TEST(TrieTest, LARGE_TEST_CASE) {
 }
 
 TEST(TrieTest, FIND) {
-  Trie trie;
+  Trie<Data> trie;
 
   // Test with normal string
   ASSERT_EQ(trie.insert("hello"), SC);
@@ -85,7 +85,7 @@ TEST(TrieTest, FIND) {
 }
 
 TEST(TrieTest, STARTSWITH) {
-  Trie trie;
+  Trie<Data> trie;
 
   // Test with normal string
   ASSERT_EQ(trie.insert("hello"), SC);

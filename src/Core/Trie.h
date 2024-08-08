@@ -4,7 +4,9 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#define TRIE_TEMPLATE template <typename T>
 
+TRIE_TEMPLATE
 class Trie {
 public:
   enum class Result {
@@ -18,11 +20,11 @@ public:
 private:
   struct Node {
     Node();
-    Node(Data *data, bool isEnd = false);
+    Node(T *data, bool isEnd = false);
     ~Node();
 
     std::unordered_map<char, Node *> children;
-    Data *data;
+    T *data;
     bool isEnd;
   };
 
@@ -30,16 +32,16 @@ public:
   Trie();
   ~Trie();
 
-  Result insert(Data *data);
+  Result insert(T *data);
   Result insert(std::string word);
   Result remove(std::string word);
   Result contains(std::string word);
-  Data *find(std::string word);
+  T *find(std::string word);
   void clear();
-  std::vector<Data *> startsWith(std::string prefix);
+  std::vector<T *> startsWith(std::string prefix);
 
 private:
-  Result insert(std::string word, Data *data);
+  Result insert(std::string word, T *data);
 
 private:
   Node *root;
