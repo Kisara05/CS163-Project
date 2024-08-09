@@ -1,13 +1,14 @@
 #include <Helper.h>
-
-std::string convertToNonAccentVN(std::string str) {
-
-}
-
-std::string normalize(std::string str) {
+using namespace std;
+string convertToNonAccentVN(std::string str) {
 
 }
 
-std::vector<std::string> split(const std::string &str, char delimiter) {
+string normalize(std::string str) {
 
 }
+
+vector<string> split(const string &str, char delimiter) {
+
+}
+// serialize and deserialize data structure (Trie --> JSON)

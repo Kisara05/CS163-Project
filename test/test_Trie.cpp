@@ -5,6 +5,7 @@
 
 #include "gtest/gtest.h"
 #include <algorithm>
+using namespace std;
 
 #define SC Trie<Data>::Result::SUCCESS
 #define NF Trie<Data>::Result::NOT_FOUND
@@ -55,15 +56,9 @@ TEST(TrieTest, LARGE_TEST_CASE) {
   Trie<Data> trie;
 
   // Insert and remove
-  for (int i = 1; i <= 10000; i++) {
-    ASSERT_EQ(trie.insert(std::to_string(i)), SC);
-  }
-  for (int i = 1; i <= 10000; i++) {
-    ASSERT_EQ(trie.remove(std::to_string(i)), SC);
-  }
-  for (int i = 1; i <= 10000; i++) {
-    ASSERT_EQ(trie.contains(std::to_string(i)), NF);
-  }
+  for (int i = 1; i <= 10000; ++i) ASSERT_EQ(trie.insert(to_string(i)), SC);
+  for (int i = 1; i <= 10000; ++i) ASSERT_EQ(trie.remove(to_string(i)), SC);
+  for (int i = 1; i <= 10000; ++i) ASSERT_EQ(trie.contains(to_string(i)), NF);
 }
 
 TEST(TrieTest, FIND) {
@@ -93,9 +88,8 @@ TEST(TrieTest, STARTSWITH) {
   ASSERT_EQ(trie.insert("hello world!"), SC);
   ASSERT_EQ(trie.insert("hello world!"), AE);
 
-  std::vector<Data *> found = trie.startsWith("hello");
-  std::sort(found.begin(), found.end(),
-            [](Data *a, Data *b) { return a->getWord() < b->getWord(); });
+  vector<Data *> found = trie.startsWith("hello");
+  sort(found.begin(), found.end(), [](Data *a, Data *b) { return a->getWord() < b->getWord(); });
   ASSERT_EQ(found.size(), 3);
   ASSERT_EQ(found[0]->getWord(), "hello");
   ASSERT_EQ(found[1]->getWord(), "hello world");
@@ -114,8 +108,7 @@ TEST(TrieTest, STARTSWITH) {
   ASSERT_EQ(trie.insert("@#$%^&*()!"), AE);
 
   found = trie.startsWith("@#$%^&*()");
-  std::sort(found.begin(), found.end(),
-            [](Data *a, Data *b) { return a->getWord() < b->getWord(); });
+  sort(found.begin(), found.end(), [](Data *a, Data *b) { return a->getWord() < b->getWord(); });
   ASSERT_EQ(found.size(), 2);
   ASSERT_EQ(found[0]->getWord(), "@#$%^&*()");
   ASSERT_EQ(found[1]->getWord(), "@#$%^&*()!");
