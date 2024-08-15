@@ -180,8 +180,6 @@ void Core::loadFromFile() {
                 std::cout << "[WARN] History word not found in dictionary: " << line;
                 continue;
             }
-
-            
         }
 
         historyFile.close();
