@@ -49,8 +49,7 @@ std::pair<Core::Word*, std::array<Core::Definition*, 5>> Core::getWordQuiz() {
             while (randomWord == question) {
                 randomWord = getRandomWord();
             }
-            std::uniform_int_distribution<> dist2(0,
-                                                  randomWord->defs.size() - 1);
+            std::uniform_int_distribution<> dist2(0, randomWord->defs.size() - 1);
             int randomIndex2 = dist2(gen);
             choices[i] = randomWord->defs[randomIndex2];
         }
@@ -72,7 +71,7 @@ std::pair<Core::Definition*, std::array<Core::Word*, 5>> Core::getDefinitionQuiz
     std::uniform_int_distribution<> dist1(1, 4);
     randomID = dist1(gen);
     choices[randomID] = question->word;
-    for (int i = 1; i < 5; i++) {
+    for (int i = 1; i < 5; ++i) {
         if (i != randomID) {
             Word* randomWord = getRandomWord();
             while (randomWord == question->word) {
