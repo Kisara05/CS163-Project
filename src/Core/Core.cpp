@@ -120,7 +120,7 @@ void Core::removeFavorite(Word* word) {
         word->IsFavorite = false;
     }
     else {
-        std::cout << "This has yet been added as favorite word." << std::endl;
+        std::cout << "This has yet been added as favorite word.\n";
         return;
     }
 }
