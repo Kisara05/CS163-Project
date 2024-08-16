@@ -155,7 +155,7 @@ void Core::loadFromFile() {
         std::string line;
 
         while (std::getline(favoritesFile, line, '\n')) {
-            auto maybeData = wordSet.find(line);
+            Core::Word maybeData = wordSet.find(line);
 
             if (maybeData == nullptr) {
                 std::cout << "[WARN] Favorite word not found in dictionary: " << line;
@@ -181,7 +181,6 @@ void Core::loadFromFile() {
                 continue;
             }
         }
-
         historyFile.close();
     }
 }
