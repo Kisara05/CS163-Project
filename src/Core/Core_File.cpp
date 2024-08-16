@@ -118,7 +118,7 @@ void Core::loadFromFile() {
                 wordSet.insert(wordObj);
             }
 
-            auto defObj = new Definition(definition);
+            Core::Definition defObj = new Definition(definition);
 
             defObj->word = wordObj;
             wordObj->defs.push_back(defObj);
@@ -137,7 +137,7 @@ void Core::loadFromFile() {
 
                 defWord = definition.substr(prevPos, len);
 
-                auto defWordObj = new DefWord(defWord);
+                Core::DefWord defWordObj = new DefWord(defWord);
 
                 defWordObj->defs.push_back(defObj);
                 mDefWordCollection.push_back(defWordObj);
@@ -174,7 +174,7 @@ void Core::loadFromFile() {
         std::string line;
 
         while (std::getline(historyFile, line, '\n')) {
-            auto maybeData = wordSet.find(line);
+            Core::Word maybeData = wordSet.find(line);
 
             if (maybeData == nullptr) {
                 std::cout << "[WARN] History word not found in dictionary: " << line;
