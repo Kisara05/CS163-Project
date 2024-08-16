@@ -149,7 +149,7 @@ Core::Word* Core::addWord(std::string wordToBeAdded) {
 void Core::removeWord(Word* word) {
     if (word != nullptr) {
         wordSet.remove(word -> string);
-        for (int i = 0; i < word -> defs.size(); i++) {
+        for (int i = 0; i < word -> defs.size(); ++i) {
             word -> defs[i] -> str = "";
         }
         word -> string = "";
