@@ -90,7 +90,7 @@ TEST(TrieTest, STARTSWITH) {
   ASSERT_EQ(trie.insert("hello world!"), SC);
   ASSERT_EQ(trie.insert("hello world!"), AE);
 
-  vector<Data *> found = trie.startsWith("hello");
+  vector<Data*> found = trie.startsWith("hello");
   sort(found.begin(), found.end(),
        [](Data *a, Data *b) { return a->getWord() < b->getWord(); });
   ASSERT_EQ(found.size(), 3);
