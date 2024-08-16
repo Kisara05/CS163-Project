@@ -1,7 +1,7 @@
 #include "Core.h"
 #include <iostream>
 #include <vector>
-using namespace std;
+
 Core::Word::Word(const std::string& str) : orginalString(str), string(convertToNonAccentVN(str)) {
 
 }
@@ -110,7 +110,7 @@ void Core::addFavorite(Word* word) {
         word->IsFavorite = true;
     }
     else {
-        std::cout << "You have already added this favorite word." << std::endl;
+        std::cout << "You have already added this favorite word.\n";
         return;
     }
 }
