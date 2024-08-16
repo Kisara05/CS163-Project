@@ -1,10 +1,10 @@
 #include <Helper.h>
 using namespace std;
-string convertToNonAccentVN(std::string str) {
+string convertToNonAccentVN(string str) {
 
 }
 
-string normalize(std::string str) {
+string normalize(string str) {
 
 }
 
