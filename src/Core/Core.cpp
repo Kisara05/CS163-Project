@@ -161,7 +161,6 @@ Core::~Core() {
     for (std::vector<Word*>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
         delete *ptr;
     }
-    
     for (auto ptr : mDefCollection) {
         delete ptr;
     }
@@ -169,16 +168,16 @@ Core::~Core() {
         delete ptr;
     }
 }
-vector<Core::Word*> Core::searchDefinition(const string& inputString) {
-    string normalizedString = normalize(inputString);
-    vector<Definition*> defResults = mDefCollection;
+std::vector<Core::Word*> Core::searchDefinition(const std::string& inputString) {
+    std::string normalizedString = normalize(inputString);
+    std::vector<Definition*> defResults = mDefCollection;
     equivalentFilter1(defResults, normalizedString);
     equivalentFilter2(defResults, normalizedString);
-    vector<Word*> ret;
-    for (vector<Definition*>::iterator defPtr = defResults.begin(); defPtr != defResults.end(); ++defPtr) {
+    std::vector<Word*> ret;
+    for (std::vector<Definition*>::iterator defPtr = defResults.begin(); defPtr != defResults.end(); ++defPtr) {
         if ((*defPtr)->isDeleted()) continue;
         bool isDuplicated = false;
-        for (vector<Word*>::iterator wordPtr = ret.begin(); wordPtr != ret.end(); ++wordPtr) {
+        for (std::vector<Word*>::iterator wordPtr = ret.begin(); wordPtr != ret.end(); ++wordPtr) {
             if ((*defPtr)->word == *wordPtr) {
                 isDuplicated = true;
                 break;
