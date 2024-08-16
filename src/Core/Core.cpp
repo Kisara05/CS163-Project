@@ -1,5 +1,7 @@
 #include "Core.h"
+#include <iostream>
 #include <vector>
+using namespace std;
 Core::Word::Word(const std::string& str) : orginalString(str), string(convertToNonAccentVN(str)) {
 
 }
@@ -95,11 +97,10 @@ void Core::resetDefault() {
         delete *ptr;
     }
     wordCollection.clear();
-    for (auto ptr : defCollection) {
-        delete ptr;
+    for (std::vector<Definition*>::iterator ptr = defCollection.begin(); ptr != defCollection.end(); ++ptr) {
+        delete *ptr;
     }
     defCollection.clear();
-
     history.clear();
     loadWordLocal(dataPath);
 }
