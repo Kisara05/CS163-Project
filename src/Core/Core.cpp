@@ -43,7 +43,7 @@ std::pair<Core::Word*, std::array<Core::Definition*, 5>> Core::getWordQuiz() {
     std::uniform_int_distribution<> dist1(1, 4);
     randomID = dist1(gen);
     choices[randomID] = choices[0];
-    for (int i = 1; i < 5; i++) {
+    for (int i = 1; i < 5; ++i) {
         if (i != randomID) {
             Word* randomWord = getRandomWord();
             while (randomWord == question) {
