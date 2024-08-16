@@ -159,8 +159,8 @@ void Core::removeWord(Word* word) {
 Core::~Core() {
     saveToFile();
 
-    for (auto ptr : wordCollection) {
-        delete ptr;
+    for (std::vector<Word*>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
+        delete *ptr;
     }
     for (auto ptr : mDefCollection) {
         delete ptr;
