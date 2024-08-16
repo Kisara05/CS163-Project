@@ -90,7 +90,6 @@ std::pair<Core::Definition*, std::array<Core::Word*, 5>> Core::getDefinitionQuiz
 // Reset to original
 void Core::resetDefault() {
     std::string dataPath = "data/dictionary-data/" + mDataSpecifier;
-
     wordSet.clear();
     defWordSet.clear();
     for (std::vector<Word*>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
@@ -162,6 +161,7 @@ Core::~Core() {
     for (std::vector<Word*>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
         delete *ptr;
     }
+    
     for (auto ptr : mDefCollection) {
         delete ptr;
     }
