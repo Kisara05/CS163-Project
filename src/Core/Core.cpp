@@ -1,6 +1,7 @@
 #include "Core.h"
 
 Core::Word::Word(const std::string& str) : orginalString(str), string(convertToNonAccentVN(str)) {
+
 }
 
 Core::Core(const std::string& inputDefCharSet, const std::string& inputSpecifier,
@@ -8,7 +9,7 @@ Core::Core(const std::string& inputDefCharSet, const std::string& inputSpecifier
     , dataName(inputDataName)
     , defWordSet(inputDefCharSet)
     , wordSet(inputWordCharSet) {
-    std::cout << "Now loading: " << dataSpecifier << "..." << std::endl;
+    std::cout << "Now loading: " << dataSpecifier << "...\n";
     loadFromFile();
 }
 
