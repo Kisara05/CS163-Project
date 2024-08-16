@@ -135,7 +135,7 @@ std::string Core::getDataName() {
 
 Core::Word* Core::addWord(std::string wordToBeAdded) {
     Word* newWord = new Word(wordToBeAdded);
-    if (wordSet.insert(newWord) == Trie<Word*>::StatusID::SUCCESS) {
+    if (wordSet.insert(newWord) == Trie<Word>::Result::SUCCESS) {
         wordCollection.push_back(newWord);
     }
     else {
@@ -161,16 +161,16 @@ Core::~Core() {
     for (std::vector<Word*>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
         delete *ptr;
     }
-    for (auto ptr : mDefCollection) {
+    for (auto ptr : defCollection) {
         delete ptr;
     }
-    for (auto ptr : mDefWordCollection) {
+    for (auto ptr : defWordCollection) {
         delete ptr;
     }
 }
 std::vector<Core::Word*> Core::searchDefinition(const std::string& inputString) {
     std::string normalizedString = normalize(inputString);
-    std::vector<Definition*> defResults = mDefCollection;
+    std::vector<Definition*> defResults = defCollection;
     equivalentFilter1(defResults, normalizedString);
     equivalentFilter2(defResults, normalizedString);
     std::vector<Word*> ret;
@@ -192,14 +192,14 @@ Core::Definition* Core::addDefinition(std::string defString, Word* word) {
     Definition* newDef = new Definition(defString);
     newDef->word = word;
     word->defs.push_back(newDef);
-    mDefCollection.push_back(newDef);
+    defCollection.push_back(newDef);
     for (std::vector<std::string>::iterator defWordStr = split(newDef->str, ' ').begin(); defWordStr != split(newDef->str, ' ').end(); ++defWordStr) {
         DefWord* myDefWord;
         if (defWordStr.size() <= 2) continue;
-        if (mDefWordSet.getData(defWordStr, myDefWord) == Trie<DefWord*>::StatusID::NOT_FOUND) {
+        if (defWordSet.getData(defWordStr, myDefWord) == Trie<DefWord>::Result::NOT_FOUND) {
             myDefWord = new DefWord(defWordStr);
-            mDefWordCollection.push_back(myDefWord);
-            mDefWordSet.insert(myDefWord);
+            defWordCollection.push_back(myDefWord);
+            defWordSet.insert(myDefWord);
         }
         myDefWord->defs.push_back(newDef);
     }
