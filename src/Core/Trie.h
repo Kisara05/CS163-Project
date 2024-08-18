@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include "nlohmann/json.hpp"
 #define TRIE_TEMPLATE template <typename T>
 
 TRIE_TEMPLATE
@@ -26,6 +27,9 @@ private:
     std::unordered_map<char, Node *> children;
     T *data;
     bool isEnd;
+
+  public:
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Node, children, data, isEnd)
   };
 
 public:
@@ -45,6 +49,9 @@ private:
 
 private:
   Node *root;
+
+public:
+  NLOHMANN_DEFINE_TYPE_INTRUSIVE(Trie, root)
 };
 #include "Trie.cpp"
 

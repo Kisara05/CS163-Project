@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <array>
+#include "nlohmann/json.hpp"
 
 class Core {
 public:
@@ -20,9 +21,22 @@ public:
 
         int rating;
 
+        explicit Definition() = default;
         Definition(const std::string &str);
 
         bool isDeleted();
+    
+    public:
+        friend void from_json(const nlohmann::json& j, Definition& d) {
+            j.at("originalString").get_to(d.originalString);
+            j.at("str").get_to(d.str);
+            d.word = nullptr;
+        }
+
+        friend void to_json(nlohmann::json& j, const Definition& d) {
+            j["originalString"] = d.originalString;
+            j["string"] = d.str;
+        }
     };
 
     struct Word {
@@ -33,12 +47,54 @@ public:
         Word(const std::string& str);
 
         bool isDeleted();
+    public:
+        friend void from_json(const nlohmann::json& j, Word& w) {
+            j.at("orginalString").get_to(w.orginalString);
+            j.at("string").get_to(w.string);
+            j.at("IsFavorite").get_to(w.IsFavorite);
+
+            for (auto def : j.at("defs")) {
+                auto d = new Definition;
+                def.get_to(*d);
+                d->word = &w;
+                w.defs.push_back(d);
+            }
+        }
+
+        friend void to_json(nlohmann::json& j, const Word& w) { 
+            j["orginalString"] = w.orginalString;
+            j["string"] = w.string;
+            j["IsFavorite"] = w.IsFavorite;
+            
+            for (auto def : w.defs) {
+                j["defs"].push_back(*def);
+            }
+        }
     };
 
     struct DefWord {
         std::string str;
         std::vector<Definition *> defs;
         DefWord(const std::string &str);
+    
+    public:
+        friend void from_json(const nlohmann::json& j, DefWord& dw) {
+            j.at("str").get_to(dw.str);
+
+            for (auto def : j.at("defs")) {
+                auto d = new Definition;
+                def.get_to(*d);
+                dw.defs.push_back(d);
+            }
+        }
+
+        friend void to_json(nlohmann::json& j, const DefWord& dw) {
+            j["str"] = dw.str;
+
+            for (auto def : dw.defs) {
+                j["defs"].push_back(*def);
+            }
+        }
     };
 
     Core(const std::string& dataName, const std::string& specifier,
