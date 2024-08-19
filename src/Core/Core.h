@@ -3,6 +3,7 @@
 
 #include "Trie.h"
 #include <random>
+#include <fstream>
 #include <vector>
 #include <string>
 #include <array>
@@ -108,6 +109,9 @@ public:
     void addFavorite(Word* word);
     void removeFavorite(Word* word);
     bool isFavorite(Word* word);
+    void loadDataFromSpecifier(const std::string& dataSpecifier,
+        std::vector<std::string>& word);
+    void loadDataFromHistory(const std::string& dataSpecifier);
 
     // pair::first is the question, pair::second [1..4] are choices, [0] is the
     // answer

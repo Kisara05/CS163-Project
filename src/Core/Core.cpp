@@ -155,6 +155,48 @@ void Core::removeWord(Word* word) {
     }
 }
 
+void Core::loadDataFromSpecifier(const std::string& dataSpecifier,
+    std::vector<std::string>& word) {
+    std::string datasetPath = dataSpecifier + "/data.txt";
+    std::ifstream file(datasetPath);
+    if (!file.is_open()) {
+        std::cerr << "Error when opening data file: " << datasetPath << std::endl;
+        return;
+    }
+    std::string line;
+    while (std::getline(file, line)) {
+        word.push_back(extractFirstWord(line));
+    }
+
+    file.close();
+
+    for (int i = 0; i < word.size(); i++) {
+        Word* myWord;
+        if (wordSet.getData(word[i], myWord)
+            == Trie<Word*>::StatusID::SUCCESS)
+            addFavorite(myWord);
+        else
+            std::cout << "Error getting fav words\n";
+    }
+}
+
+void Core::loadDataFromHistory(const std::string& dataSpecifier) {
+    std::string datasetPath =
+        dataSpecifier + "/data.txt";
+    std::ifstream file(datasetPath);
+    if (!file.is_open()) {
+        std::cerr << "Error when opening data file: " << datasetPath << std::endl;
+        return;
+    }
+    std::string line;
+    while (std::getline(file, line)) {
+        Word* myWord;
+        if (wordSet.getData(line, myWord) == Trie<Word*>::StatusID::SUCCESS)
+            history.push_back(myWord);
+    }
+    file.close();
+}
+
 Core::~Core() {
     saveToFile();
 
