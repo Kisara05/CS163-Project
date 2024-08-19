@@ -112,6 +112,7 @@ public:
     void loadDataFromSpecifier(const std::string& dataSpecifier,
         std::vector<std::string>& word);
     void loadDataFromHistory(const std::string& dataSpecifier);
+    void loadWordLocal(const std::string& dataSpecifier);
 
     // pair::first is the question, pair::second [1..4] are choices, [0] is the
     // answer

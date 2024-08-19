@@ -248,6 +248,37 @@ Core::Definition* Core::addDefinition(std::string defString, Word* word) {
     return newDef;
 }
 
+void Core::loadWordLocal(const std::string& dataSpecifier) {
+    std::string dataFilePath = dataSpecifier + "/data.txt";
+    std::ifstream file(dataFilePath);
+    if (!file.is_open()) {
+        std::cerr << "Error when opening data file: " << dataFilePath << std::endl;
+        return;
+    }
+
+    std::string line;
+    int i = 0;
+    while (std::getline(file, line)) {
+        std::string s = extractFirstWord(line);
+        Word* myWord;
+        i++;
+        Word* a = new Word(s);
+        if (wordSet.getData(a->string, myWord)
+            == Trie<Word*>::StatusID::NOT_FOUND) {
+            wordCollection.push_back(a);
+            wordSet.insert(a);
+            std::string s = extractSecondWord(line);
+            addDefinition(s, a);
+        }
+        else {
+            std::string s = extractSecondWord(line);
+            addDefinition(s, myWord);
+            delete a;
+        }
+    }
+    file.close();
+}
+
 void Core::editDefinition(Core::Definition* def, const std::string& newDef) {
     def->str = "";
     addDefinition(newDef, def->word);
