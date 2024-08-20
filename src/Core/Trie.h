@@ -1,10 +1,9 @@
 #ifndef TRIE_H
 #define TRIE_H
-#include "Data.h"
+#include "nlohmann/json.hpp"
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "nlohmann/json.hpp"
 #define TRIE_TEMPLATE template <typename T>
 
 TRIE_TEMPLATE
@@ -37,7 +36,7 @@ public:
   ~Trie();
 
   Result insert(T *data);
-  Result insert(std::string word);
+  Result insert(std::string word); // Insert a word without data
   Result remove(std::string word);
   Result contains(std::string word);
   T *find(std::string word);
