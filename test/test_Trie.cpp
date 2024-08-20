@@ -1,9 +1,33 @@
-#include "../src/Core/Data.cpp"
-#include "../src/Core/Data.h"
 #include "../src/Core/Trie.h"
 
 #include "gtest/gtest.h"
 #include <algorithm>
+
+class Data {
+public:
+  Data();
+  Data(std::string word);
+  virtual ~Data();
+  virtual std::string getWord();
+  std::string word;
+};
+
+class Word : Data {
+public:
+  Word();
+  Word(std::string word);
+  ~Word();
+};
+Data::Data() : word("") {}
+Data::Data(std::string word) : word(word) {}
+Data::~Data() {}
+
+std::string Data::getWord() { return word; }
+
+Word::Word() : Data() {}
+Word::Word(std::string word) : Data(word) {}
+Word::~Word() {}
+
 using namespace std;
 
 #define SC Trie<Data>::Result::SUCCESS
@@ -66,7 +90,7 @@ TEST(TrieTest, LARGE_TEST_CASE) {
 TEST(TrieTest, FIND) {
   Trie<Data> trie;
 
-  // Test with normal string
+  // Test wit h normal string
   ASSERT_EQ(trie.insert("hello"), SC);
   Data *found = trie.find("hello");
   ASSERT_NE(found, nullptr);
@@ -90,7 +114,7 @@ TEST(TrieTest, STARTSWITH) {
   ASSERT_EQ(trie.insert("hello world!"), SC);
   ASSERT_EQ(trie.insert("hello world!"), AE);
 
-  vector<Data*> found = trie.startsWith("hello");
+  vector<Data *> found = trie.startsWith("hello");
   sort(found.begin(), found.end(),
        [](Data *a, Data *b) { return a->getWord() < b->getWord(); });
   ASSERT_EQ(found.size(), 3);
