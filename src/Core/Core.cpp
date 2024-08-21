@@ -291,7 +291,15 @@ Core::Definition *Core::addDefinition(std::string defString, Word *word) {
 void Core::ratingCleanUp() {
     for (std::vector<Core::Definition*>::iterator defPtr = mDefCollection.begin(); defPtr != mDefCollection.end(); ++defPtr) (*defPtr)->rating = 0;
 }
-
+std::string extractFirstWord(const std::string &inputString) {
+  std::string firstWord;
+  int position = inputString.find('\t');
+  if (position != std::string::npos) {
+    firstWord = inputString.substr(0, position);
+  }
+  else firstWord = inputString;
+  return firstWord;
+}
 void Core::loadWordLocal(const std::string &dataSpecifier) {
   std::string dataFilePath = dataSpecifier + "/data.txt";
   std::ifstream file(dataFilePath);
