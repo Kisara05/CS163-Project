@@ -163,14 +163,13 @@ void Core::loadDataFromSpecifier(const std::string &dataSpecifier,
   std::string datasetPath = dataSpecifier + "/data.txt";
   std::ifstream file(datasetPath);
   if (!file.is_open()) {
-    std::cerr << "Error when opening data file: " << datasetPath << std::endl;
+    std::cerr << "Error when opening data file: " << datasetPath << "\n";
     return;
   }
   std::string line;
   while (std::getline(file, line)) {
     word.push_back(extractFirstWord(line));
   }
-
   file.close();
 
   for (int i = 0; i < word.size(); i++) {
@@ -182,39 +181,37 @@ void Core::loadDataFromSpecifier(const std::string &dataSpecifier,
   }
 }
 void Core::updateHistory(Word *word) {
-  if (!word)
-    return;
+  if (!word) return;
   bool found = false;
-  for (int i = 0; i < history.size(); i++) {
+  for (int i = 0; i < history.size(); ++i) {
     if (history[i] == word) {
-      found = true;
-      history.erase(history.begin() + i);
-      break;
+        found = true;
+        history.erase(history.begin() + i);
+        break;
     }
-  }
-
+}
   if (found) {
     history.insert(history.begin(), word);
   } else {
     if (history.size() >= RESULT_LIMIT) {
-      history.pop_back();
+        history.pop_back();
     }
     history.insert(history.begin(), word);
   }
 }
 
 std::vector<Core::Word *> Core::getHistory() {
-  for (int i = 0; i < history.size(); i++) {
+  for (int i = 0; i < history.size(); ++i) {
     if (history[i]->isDeleted()) {
-      history.erase(history.begin() + i);
+        history.erase(history.begin() + i);
     }
   }
 }
 std::vector<Core::Word *> Core::getFavoriteList() {
   std::vector<Word *> favWords;
-  for (int i = 0; i < wordCollection.size(); i++) {
+  for (int i = 0; i < wordCollection.size(); ++i) {
     if (wordCollection[i]->IsFavorite) {
-      favWords.push_back(wordCollection[i]);
+        favWords.push_back(wordCollection[i]);
     }
   }
   return favWords;
@@ -224,23 +221,21 @@ void Core::loadDataFromHistory(const std::string &dataSpecifier) {
   std::string datasetPath = dataSpecifier + "/data.txt";
   std::ifstream file(datasetPath);
   if (!file.is_open()) {
-    std::cerr << "Error when opening data file: " << datasetPath << std::endl;
+    std::cerr << "Error when opening data file: " << datasetPath << "\n";
     return;
   }
   std::string line;
   while (std::getline(file, line)) {
     Word *myWord = wordSet.find(line);
-    if (myWord != nullptr)
-      history.push_back(myWord);
+    if (myWord != nullptr) {
+        history.push_back(myWord);
+    }
+    file.close();
   }
-  file.close();
 }
-
 Core::~Core() {
   saveToFile();
-
-  for (std::vector<Word *>::iterator ptr = wordCollection.begin();
-       ptr != wordCollection.end(); ++ptr) {
+  for (std::vector<Word *>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
     delete *ptr;
   }
   for (auto ptr : defCollection) {
