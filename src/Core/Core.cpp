@@ -291,21 +291,14 @@ Core::Definition *Core::addDefinition(std::string defString, Word *word) {
 void Core::ratingCleanUp() {
     for (std::vector<Core::Definition*>::iterator defPtr = mDefCollection.begin(); defPtr != mDefCollection.end(); ++defPtr) (*defPtr)->rating = 0;
 }
-void Core::equivalentFilter1(std::vector<Core::Definition*>& defResults, const std::string& inputString) {
-    ratingCleanUp();
-    for (std::vector<std::string>::iterator wordStr = split(inputString, ' ').begin(); wordStr != split(inputString, ' ').end(); ++wordStr) {
-        Core::DefWord* ptr;
-        if (mDefWordSet.getData(*wordStr, ptr) == Trie<Core::DefWord*>::StatusID::SUCCESS) {
-            for (std::vector<Core::Definition*>::iterator defPtr = ptr->defs.begin(); defPtr != ptr->defs.end(); ++defPtr) {
-                if (!(*defPtr)->isDeleted()) (*defPtr)->rating++;
-            }
-        }
-    }
-    sort(defResults.begin(), defResults.end(), [](Core::Definition* x, Core::Definition* y) {
-        return x->rating > y->rating;
-    });
-    defResults.resize(RESULT_LIMIT * RESULT_LIMIT);
-    while (defResults.size() && defResults.back()->rating == 0) defResults.pop_back();
+std::string extractFirstWord(const std::string &inputString) {
+  std::string firstWord;
+  int position = inputString.find('\t');
+  if (position != std::string::npos) {
+    firstWord = inputString.substr(0, position);
+  }
+  else firstWord = inputString;
+  return firstWord;
 }
 void Core::equivalentFilter2(std::vector<Core::Definition*>& defResults, const std::string& inputString) {
     ratingCleanUp();
