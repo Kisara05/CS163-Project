@@ -150,5 +150,8 @@ private:
 
   void loadFromFile();
   void saveToFile();
+  void ratingCleanUp();
+  void equivalentFilter1(std::vector<Definition *> &defResults, const std::string &inputString);
+  void equivalentFilter2(std::vector<Definition *> &defResults, const std::string &inputString);
 };
 #endif // CORE_CORE_H
