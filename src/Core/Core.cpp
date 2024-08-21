@@ -404,3 +404,7 @@ Core::Definition* Core::addDefinition(std::string defString, Word* word) {
     return newDef;
 }
 
+void Core::editDefinition(Core::Definition* def, const std::string& newDef) {
+    def->str = "";
+    addDefinition(newDef, def->word);
+}
