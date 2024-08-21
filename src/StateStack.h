@@ -3,6 +3,8 @@
 #include "StateStack.inl"
 
 #include "States/State.h"
+#include <vector>
+#include <map>
 
 class StateStack {
 public:
@@ -34,4 +36,4 @@ private:
     std::map<StateIDs, std::function<State::Ptr()>> factories;
     State::Context context;
 };
-#endif
+#endif STATESTACK_H
