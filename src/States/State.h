@@ -1,2 +1,14 @@
 #include "memory.h"
-using namespace std;
+
+class StateStack;
+
+class State {
+public:
+	struct Context {};
+
+
+private:
+    StateStack* stack;
+    Context context;
+};
+#endif
