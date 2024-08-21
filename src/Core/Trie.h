@@ -42,13 +42,11 @@ public:
   T *find(std::string word);
   void clear();
   std::vector<T *> startsWith(std::string prefix);
-
 private:
   Result insert(std::string word, T *data);
 
 private:
   Node *root;
-
 public:
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(Trie, root)
 };
