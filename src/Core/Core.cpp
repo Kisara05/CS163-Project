@@ -386,3 +386,21 @@ Core::Word* Core::addWord(std::string wordString) {
     return newWord;
 }
 
+Core::Definition* Core::addDefinition(std::string defString, Word* word) {
+    Definition* newDef = new Definition(defString);
+    newDef->word = word;
+    word->defs.push_back(newDef);
+    mDefCollection.push_back(newDef);
+    for (std::vector<std::string>::iterator defWordStr = split(newDef->str, ' ').begin(); defWordStr != split(newDef->str, ' ').end(); ++defWordStr) {
+        DefWord* myDefWord;
+        if ((*defWordStr).size() <= 2) continue;
+        if (mDefWordSet.getData((*defWordStr), myDefWord) == Trie<DefWord*>::StatusID::NOT_FOUND) {
+            myDefWord = new DefWord((*defWordStr));
+            mDefWordCollection.push_back(myDefWord);
+            mDefWordSet.insert(myDefWord);
+        }
+        myDefWord->defs.push_back(newDef);
+    }
+    return newDef;
+}
+
