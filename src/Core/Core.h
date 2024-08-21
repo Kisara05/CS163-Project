@@ -142,12 +142,15 @@ private:
 
   Trie<Word> wordSet;
   Trie<DefWord> defWordSet;
-
+  Trie<Word *> mWordSet;
+  Trie<DefWord *> mDefWordSet;
   std::string mDataSpecifier;
 
   std::string dataName;
   std::string dataSpecifier;
-
+  std::vector<Word *> mWordCollection;
+  std::vector<Definition *> mDefCollection;
+  std::vector<DefWord *> mDefWordCollection;
   void loadFromFile();
   void saveToFile();
   void ratingCleanUp();
