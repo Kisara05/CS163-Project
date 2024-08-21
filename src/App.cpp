@@ -16,7 +16,7 @@ void App::initApp() {
     }
 }
 
-void App : renderApp() {
+void App::renderApp() {
     BeginDrawing();
     stateStack.draw();
     EndDrawing();
