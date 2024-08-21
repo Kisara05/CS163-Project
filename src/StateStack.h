@@ -36,4 +36,4 @@ private:
     std::map<StateIDs, std::function<State::Ptr()>> factories;
     State::Context context;
 };
-#endif STATESTACK.H
+#endif STATESTACK_H
