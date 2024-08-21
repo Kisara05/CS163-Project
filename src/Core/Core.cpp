@@ -374,3 +374,15 @@ void Core::loadWordLocal(const std::string &dataSpecifier) {
   }
   file.close();
 }
+
+Core::Word* Core::addWord(std::string wordString) {
+    Word* newWord = new Word(wordString);
+    if (mWordSet.insert(newWord) == Trie<Core::Word*>::StatusID::SUCCESS) {
+        mWordCollection.push_back(newWord);
+    } else {
+        delete newWord;
+        newWord = nullptr;
+    }
+    return newWord;
+}
+
