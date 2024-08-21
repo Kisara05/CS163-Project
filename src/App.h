@@ -1,7 +1,7 @@
 #ifndef APP_H
 #define APP_H
 
-class Application {
+class App {
 public:
     static constexpr float WINDOW_WIDTH = 1024;
     static constexpr float WINDOW_HEIGHT = 640;
@@ -10,10 +10,10 @@ public:
     static constexpr int FPS = 30;
 
 public:
-    Application();
-    ~Application();
+    App();
+    ~App();
 
-    void run();
+    void initApp();
 
 private:
 };
