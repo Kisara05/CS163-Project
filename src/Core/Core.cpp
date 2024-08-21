@@ -235,11 +235,11 @@ void Core::loadDataFromHistory(const std::string &dataSpecifier) {
 }
 Core::~Core() {
   saveToFile();
-  for (std::vector<Word *>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
+  for (std::vector<Word*>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
     delete *ptr;
   }
-  for (auto ptr : defCollection) {
-    delete ptr;
+  for (std::vector<Definition*>::iterator ptr = defCollection.begin(); ptr != defCollection.end(); ++ptr) {
+    delete *ptr;
   }
   for (auto ptr : defWordCollection) {
     delete ptr;
