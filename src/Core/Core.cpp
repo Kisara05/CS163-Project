@@ -307,6 +307,32 @@ void Core::equivalentFilter1(std::vector<Core::Definition*>& defResults, const s
     defResults.resize(RESULT_LIMIT * RESULT_LIMIT);
     while (defResults.size() && defResults.back()->rating == 0) defResults.pop_back();
 }
+void Core::equivalentFilter2(std::vector<Core::Definition*>& defResults, const std::string& inputString) {
+    ratingCleanUp();
+    std::vector<std::string> inputList = split(inputString, ' ');
+    for (std::vector<Core::Definition*>::iterator defPtr = defResults.begin(); defPtr != defResults.end(); ++defPtr) {
+        if ((*defPtr)->isDeleted()) continue;
+        std::vector<std::string> defList = split((*defPtr)->str, ' ');
+        std::vector<std::vector<int>> dp(inputList.size() + 1, std::vector<int>(defList.size() + 1, 0));
+        for (int i = 1; i <= inputList.size(); ++i) {
+            for (int j = 1; j <= defList.size(); ++i) {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                if (inputList[i - 1] == defList[j - 1]) {
+                    dp[i][j]  = max(dp[i][j], dp[i - 1][j - 1] + 1);
+                }
+            }
+        }
+        (*defPtr)->rating = dp[inputList.size()][defList.size()];
+    }
+    sort(defResults.begin(), defResults.end(), [](Core::Definition* x, Core::Definition* y) {
+        return x->rating > y->rating;
+    });
+}
+
+void Core::editDefinition(Core::Definition *def, const std::string &newDef) {
+  def->str = "";
+  addDefinition(newDef, def->word);
+}
 void Core::loadWordLocal(const std::string &dataSpecifier) {
   std::string dataFilePath = dataSpecifier + "/data.txt";
   std::ifstream file(dataFilePath);
@@ -333,8 +359,4 @@ void Core::loadWordLocal(const std::string &dataSpecifier) {
     }
   }
   file.close();
-}
-void Core::editDefinition(Core::Definition *def, const std::string &newDef) {
-  def->str = "";
-  addDefinition(newDef, def->word);
 }
