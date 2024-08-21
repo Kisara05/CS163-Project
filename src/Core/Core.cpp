@@ -384,7 +384,7 @@ void Core::loadWordLocal(const std::string &dataSpecifier) {
 
 Core::Word* Core::addWord(std::string wordString) {
     Word* newWord = new Word(wordString);
-    if (wordSet.insert(newWord) == Trie<Core::Word*>::Result::SUCCESS) {
+    if (wordSet.insert(newWord) == Trie<Core::Word>::Result::SUCCESS) {
         wordCollection.push_back(newWord);
     } else {
         delete newWord;

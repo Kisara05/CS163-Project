@@ -45,3 +45,5 @@ data
 compile_commands.json
 compile_flags.txt
 TestDictionary
+/.vs
+CppProperties.json
