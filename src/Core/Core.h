@@ -114,7 +114,7 @@ public:
                              std::vector<std::string> &word);
   void loadDataFromHistory(const std::string &dataSpecifier);
   void loadWordLocal(const std::string &dataSpecifier);
-
+  std::string extractFirstWord(const std::string &inputString);
   void updateHistory(Word *word);
   std::vector<Word *> getHistory();
   std::vector<Core::Word *> getFavoriteList();
