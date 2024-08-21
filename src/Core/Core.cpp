@@ -341,7 +341,14 @@ std::string extractFirstWord(const std::string &inputString) {
   else firstWord = inputString;
   return firstWord;
 }
-
+std::string extractSecondWord(const std::string &inputString) {
+  std::string secondWord;
+  int position = inputString.find('\t');
+  if (position != std::string::npos) {
+    secondWord = inputString.substr(position + 1);
+  }
+  return secondWord;
+}
 void Core::editDefinition(Core::Definition *def, const std::string &newDef) {
   def->str = "";
   addDefinition(newDef, def->word);
