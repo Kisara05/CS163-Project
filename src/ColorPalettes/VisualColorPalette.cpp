@@ -32,24 +32,24 @@ Color VisualColor::getReferenceColor() {
     return mColors[3];
 }
 
-void VisualColor::setPrimaryColor(ColorID id) {
+void VisualColor::setPrimaryColor(ColorIndex id) {
     replaceColor(OPTIONS[id], 0);
 }
 
-void VisualColor::setSecondaryColor(ColorID id) {
+void VisualColor::setSecondaryColor(ColorIndex id) {
     replaceColor(OPTIONS[id], 1);
 }
 
-void VisualColor::setTertiaryColor(ColorID id) {
+void VisualColor::setTertiaryColor(ColorIndex id) {
     replaceColor(OPTIONS[id], 2);
 }
 
-void VisualColor::setReferenceColor(ColorID id) {
+void VisualColor::setReferenceColor(ColorIndex id) {
     replaceColor(OPTIONS[id], 3);
 }
 
 void VisualColor::replaceColor(Color src, int index) {
-    for (int i = 0; i < OPTIONS_SIZE; ++i) {
+    for (int i = 0; i < OPTIONS_SIZE; i++) {
         if (ColorToInt(mColors[i]) == ColorToInt(src)) {
             swap(mColors[i], mColors[index]);
             return;
