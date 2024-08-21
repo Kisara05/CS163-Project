@@ -300,6 +300,14 @@ std::string extractFirstWord(const std::string &inputString) {
   else firstWord = inputString;
   return firstWord;
 }
+std::string extractSecondWord(const std::string &inputString) {
+  std::string secondWord;
+  int position = inputString.find('\t');
+  if (position != std::string::npos) {
+    secondWord = inputString.substr(position + 1);
+  }
+  return secondWord;
+}
 void Core::loadWordLocal(const std::string &dataSpecifier) {
   std::string dataFilePath = dataSpecifier + "/data.txt";
   std::ifstream file(dataFilePath);
