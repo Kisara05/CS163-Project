@@ -289,7 +289,7 @@ Core::Definition *Core::addDefinition(std::string defString, Word *word) {
   return newDef;
 }
 void Core::ratingCleanUp() {
-    for (std::vector<Definition*>::iterator defPtr = mDefCollection.begin(); defPtr != mDefCollection.end(); ++defPtr) (*defPtr)->rating = 0;
+    for (std::vector<Core::Definition*>::iterator defPtr = mDefCollection.begin(); defPtr != mDefCollection.end(); ++defPtr) (*defPtr)->rating = 0;
 }
 
 void Core::loadWordLocal(const std::string &dataSpecifier) {
