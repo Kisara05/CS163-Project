@@ -247,6 +247,9 @@ Core::~Core() {
     delete *ptr;
   }
 }
+vector<Core::Word*> Core::searchKeyword(const string& inputString) {
+    return mWordSet.getPrefixMatches(inputString);
+}
 std::vector<Core::Word*>Core::searchDefinition(const std::string &inputString) {
   std::string normalizedString = normalize(inputString);
   std::vector<Definition*> defResults = defCollection;
