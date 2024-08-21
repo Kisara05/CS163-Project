@@ -8,7 +8,7 @@ class StateStack {
 public:
     explicit StateStack(State::Context context);
     bool isEmpty() const;
-   
-    bool isEmpty() const;
+
+    void draw();
 };
 #endif
