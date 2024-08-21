@@ -159,6 +159,13 @@ void Core::removeWord(Word *word) {
     word->string = "";
   }
 }
+std::string Core::extractFirstWord(const std::string& input) {
+    std::string firstWord;
+    size_t pos = input.find('\t');
+    if (pos != std::string::npos) firstWord = input.substr(0, pos);
+    else firstWord = input;
+    return firstWord;
+}
 
 void Core::loadDataFromSpecifier(const std::string &dataSpecifier,
                                  std::vector<std::string> &word) {
