@@ -14,8 +14,9 @@ public:
     ~App();
 
     void initApp();
+    void renderApp();
 
 private:
 };
 
-#endif // APP_H
+#endif
