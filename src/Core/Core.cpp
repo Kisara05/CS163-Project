@@ -247,9 +247,50 @@ Core::~Core() {
     delete *ptr;
   }
 }
-vector<Core::Word*> Core::searchKeyword(const string& inputString) {
+
+std::vector<Core::Word*> Core::searchKeyword(const std::string& inputString) {
     return mWordSet.getPrefixMatches(inputString);
 }
+
+void Core::equivalentFilter1(std::vector<Core::Definition*>& defResults, const std::string& inputString) {
+    ratingCleanUp();
+    for (std::vector<std::string>::iterator wordStr = split(inputString, ' ').begin(); wordStr != split(inputString, ' ').end(); ++wordStr) {
+        Core::DefWord* ptr;
+        if (mDefWordSet.getData(*wordStr, ptr) == Trie<Core::DefWord*>::StatusID::SUCCESS) {
+            for (std::vector<Core::Definition*>::iterator defPtr = ptr->defs.begin(); defPtr != ptr->defs.end(); ++defPtr) {
+                if (!(*defPtr)->isDeleted()) (*defPtr)->rating++;
+            }
+        }
+    }
+    sort(defResults.begin(), defResults.end(), [](Core::Definition* x, Core::Definition* y) {
+        return x->rating > y->rating;
+    });
+    defResults.resize(RESULT_LIMIT * RESULT_LIMIT);
+    while (defResults.size() && defResults.back()->rating == 0) defResults.pop_back();
+}
+
+void Core::equivalentFilter2(std::vector<Core::Definition*>& defResults, const std::string& inputString) {
+    ratingCleanUp();
+    std::vector<std::string> inputList = split(inputString, ' ');
+    for (std::vector<Core::Definition*>::iterator defPtr = defResults.begin(); defPtr != defResults.end(); ++defPtr) {
+        if ((*defPtr)->isDeleted()) continue;
+        std::vector<std::string> defList = split((*defPtr)->str, ' ');
+        std::vector<std::vector<int>> dp(inputList.size() + 1, std::vector<int>(defList.size() + 1, 0));
+        for (int i = 1; i <= inputList.size(); ++i) {
+            for (int j = 1; j <= defList.size(); ++i) {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                if (inputList[i - 1] == defList[j - 1]) {
+                    dp[i][j]  = max(dp[i][j], dp[i - 1][j - 1] + 1);
+                }
+            }
+        }
+        (*defPtr)->rating = dp[inputList.size()][defList.size()];
+    }
+    sort(defResults.begin(), defResults.end(), [](Core::Definition* x, Core::Definition* y) {
+        return x->rating > y->rating;
+    });
+}
+
 std::vector<Core::Word*>Core::searchDefinition(const std::string &inputString) {
   std::string normalizedString = normalize(inputString);
   std::vector<Definition*> defResults = defCollection;
@@ -300,14 +341,12 @@ std::string extractFirstWord(const std::string &inputString) {
   else firstWord = inputString;
   return firstWord;
 }
-std::string extractSecondWord(const std::string &inputString) {
-  std::string secondWord;
-  int position = inputString.find('\t');
-  if (position != std::string::npos) {
-    secondWord = inputString.substr(position + 1);
-  }
-  return secondWord;
+
+void Core::editDefinition(Core::Definition *def, const std::string &newDef) {
+  def->str = "";
+  addDefinition(newDef, def->word);
 }
+
 void Core::loadWordLocal(const std::string &dataSpecifier) {
   std::string dataFilePath = dataSpecifier + "/data.txt";
   std::ifstream file(dataFilePath);
@@ -335,7 +374,37 @@ void Core::loadWordLocal(const std::string &dataSpecifier) {
   }
   file.close();
 }
-void Core::editDefinition(Core::Definition *def, const std::string &newDef) {
-  def->str = "";
-  addDefinition(newDef, def->word);
+
+Core::Word* Core::addWord(std::string wordString) {
+    Word* newWord = new Word(wordString);
+    if (mWordSet.insert(newWord) == Trie<Core::Word*>::StatusID::SUCCESS) {
+        mWordCollection.push_back(newWord);
+    } else {
+        delete newWord;
+        newWord = nullptr;
+    }
+    return newWord;
+}
+
+Core::Definition* Core::addDefinition(std::string defString, Word* word) {
+    Definition* newDef = new Definition(defString);
+    newDef->word = word;
+    word->defs.push_back(newDef);
+    mDefCollection.push_back(newDef);
+    for (std::vector<std::string>::iterator defWordStr = split(newDef->str, ' ').begin(); defWordStr != split(newDef->str, ' ').end(); ++defWordStr) {
+        DefWord* myDefWord;
+        if ((*defWordStr).size() <= 2) continue;
+        if (mDefWordSet.getData((*defWordStr), myDefWord) == Trie<DefWord*>::StatusID::NOT_FOUND) {
+            myDefWord = new DefWord((*defWordStr));
+            mDefWordCollection.push_back(myDefWord);
+            mDefWordSet.insert(myDefWord);
+        }
+        myDefWord->defs.push_back(newDef);
+    }
+    return newDef;
+}
+
+void Core::editDefinition(Core::Definition* def, const std::string& newDef) {
+    def->str = "";
+    addDefinition(newDef, def->word);
 }
