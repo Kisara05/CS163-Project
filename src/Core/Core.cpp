@@ -251,7 +251,7 @@ Core::~Core() {
 }
 
 std::vector<Core::Word*> Core::searchKeyword(const std::string& inputString) {
-    return wordSet.getPrefixMatches(inputString);
+    return wordSet.startsWith(inputString);
 }
 
 void Core::equivalentFilter1(std::vector<Core::Definition*>& defResults, const std::string& inputString) {
