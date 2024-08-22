@@ -133,22 +133,3 @@ void Trie<T>::clear() {
     delete root;
   root = new Node();
 }
-
-template <class Data>
-typename Trie<Data>::Result Trie<Data>::getData(const std::string& keyword,
-                                                  Data& returnedData) {
-    Node* tmp;
-    return getData(keyword, returnedData, tmp);
-}
-
-template <class Data>
-std::vector<Data> Trie<Data>::getPrefixMatches(const std::string& keyword) {
-    std::vector<Data> results;
-    Data returnedData;
-    Node* cur = nullptr;
-    Trie<Data>::getData(keyword, returnedData, cur);
-    if (cur != nullptr) {
-        Trie<Data>::getResults(cur, results);
-    }
-    return results;
-}

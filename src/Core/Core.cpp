@@ -11,8 +11,10 @@ Core::Core(const std::string &inputDefCharSet,
            const std::string &inputWordCharSet,
            const std::string &inputDataName)
     : dataSpecifier(inputSpecifier), dataName(inputDataName),
-      defWordSet(inputDefCharSet), wordSet(inputWordCharSet) {
+      defWordSet(), wordSet()  {
   std::cout << "Now loading: " << dataSpecifier << "...\n";
+  defWordSet.insert(inputDefCharSet);
+  wordSet.insert(inputWordCharSet)
   loadFromFile();
 }
 
