@@ -257,8 +257,8 @@ std::vector<Core::Word*> Core::searchKeyword(const std::string& inputString) {
 void Core::equivalentFilter1(std::vector<Core::Definition*>& defResults, const std::string& inputString) {
     ratingCleanUp();
     for (std::vector<std::string>::iterator wordStr = split(inputString, ' ').begin(); wordStr != split(inputString, ' ').end(); ++wordStr) {
-        Core::DefWord* ptr;
-        if (defWordSet.getData(*wordStr, ptr) == Trie<Core::DefWord*>::Result::SUCCESS) {
+        Core::DefWord* ptr = defWordSet.find(*wordStr);
+        if (ptr != nullptr) {
             for (std::vector<Core::Definition*>::iterator defPtr = ptr->defs.begin(); defPtr != ptr->defs.end(); ++defPtr) {
                 if (!(*defPtr)->isDeleted()) (*defPtr)->rating++;
             }
@@ -403,7 +403,8 @@ Core::Definition* Core::addDefinition(std::string defString, Word* word) {
     for (std::vector<std::string>::iterator defWordStr = split(newDef->str, ' ').begin(); defWordStr != split(newDef->str, ' ').end(); ++defWordStr) {
         DefWord* myDefWord;
         if ((*defWordStr).size() <= 2) continue;
-        if (defWordSet.getData((*defWordStr), myDefWord) == Trie<DefWord*>::Result::NOT_FOUND) {
+        myDefWord = defWordSet.find(*defWordStr);
+        if (myDefWord == nullptr) {
             myDefWord = new DefWord((*defWordStr));
             defWordCollection.push_back(myDefWord);
             defWordSet.insert(myDefWord);
