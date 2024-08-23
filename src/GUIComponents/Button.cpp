@@ -1,4 +1,4 @@
-/*#include "Button.h"
+#include "Button.h"
 
 #include "GUIComponentHelper.h"
 
@@ -6,14 +6,14 @@
 
 Button::Button(Rectangle bounds) {
     mRect = bounds;
-    mColor = GRAY;
+    mColor = LIGHTGRAY;
 
     mInactivatedFilter = [](Color color) {
         int r = color.r;
         int g = color.g;
         int b = color.b;
         float luminance =
-            0.2126 * r + 0.7125 * g + 0.0722 * b; // Grayscaling from wiki
+            0.2126 * r + 0.7125 * g + 0.0722 * b;
         color.r = luminance;
         color.g = luminance;
         color.b = luminance;
@@ -22,6 +22,9 @@ Button::Button(Rectangle bounds) {
 }
 
 Button::~Button() {
+    if (mHasTexture) {
+        UnloadTexture(mTexture);
+    }
 }
 
 void Button::update(float dt) {
@@ -32,14 +35,6 @@ void Button::update(float dt) {
 void Button::draw() {
     float filterBrightness = 0;
     if (mState != ButtonState::None) {
-        // int r = mColor.r;
-        // int g = mColor.g;
-        // int b = mColor.b;
-        // float luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b);
-        // if (luminance < 128) // Test if the color is dark
-        //     filterBrightness = 0.2;
-        // else
-        //     filterBrightness = -0.2;
         filterBrightness = -0.2;
     }
 
@@ -156,4 +151,4 @@ void Button::checkInteraction() {
             mState = ButtonState::None;
         }
     }
-}*/
+}
