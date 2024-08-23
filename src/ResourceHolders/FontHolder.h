@@ -30,7 +30,7 @@ private:
     void operator= (FontHolder const&) = delete;
     ~FontHolder();
 
-    std::map<FontID, std::unique_ptr<Font>> mResourceMap[MAX_SIZE + 1];
+    std::map<FontID, std::unique_ptr<Font>> resourceMap[MAX_SIZE + 1];
 
 private:
     void insertResource(int size, FontID id, std::unique_ptr<Font> resource);

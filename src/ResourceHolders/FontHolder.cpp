@@ -29,12 +29,12 @@ const int FontHolder::VN_CODEPOINTS[] = {
 
 FontHolder::FontHolder() {
     for (int i = ROUNDING; i <= MAX_SIZE; i += ROUNDING)
-        mResourceMap[i][FontID::None] = std::make_unique<Font>();
+        resourceMap[i][FontID::None] = std::make_unique<Font>();
 }
 
 FontHolder::~FontHolder() {
     for (int i = ROUNDING; i <= MAX_SIZE; i += ROUNDING)
-        for (auto& p : mResourceMap[i]) {
+        for (auto& p : resourceMap[i]) {
             UnloadFont(*p.second);
         }
 }
@@ -62,9 +62,9 @@ Font& FontHolder::get(FontID id, int size) {
     if (size > MAX_SIZE)
         size -= ROUNDING;
 
-    auto found = mResourceMap[size].find(id);
-    if (found == mResourceMap[size].end()) {
-        return *mResourceMap[size][FontID::None];
+    auto found = resourceMap[size].find(id);
+    if (found == resourceMap[size].end()) {
+        return *resourceMap[size][FontID::None];
     }
     SetTextureFilter(found->second->texture, TEXTURE_FILTER_BILINEAR);
     return *found->second;
@@ -78,9 +78,9 @@ const Font& FontHolder::get(FontID id, int size) const {
     if (size > MAX_SIZE)
         size -= ROUNDING;
 
-    auto found = mResourceMap[size].find(id);
-    if (found == mResourceMap[size].end()) {
-        return *mResourceMap[size].at(FontID::None);
+    auto found = resourceMap[size].find(id);
+    if (found == resourceMap[size].end()) {
+        return *resourceMap[size].at(FontID::None);
     }
     SetTextureFilter(found->second->texture, TEXTURE_FILTER_BILINEAR);
     return *found->second;
@@ -88,6 +88,6 @@ const Font& FontHolder::get(FontID id, int size) const {
 
 void FontHolder::insertResource(int size, FontID id,
                                 std::unique_ptr<Font> resource) {
-    auto insertStatus = mResourceMap[size].emplace(id, std::move(resource));
+    auto insertStatus = resourceMap[size].emplace(id, std::move(resource));
     assert(insertStatus.second == true);
 }
