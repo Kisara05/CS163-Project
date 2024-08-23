@@ -44,7 +44,7 @@ typename Trie<T>::Result Trie<T>::insert(std::string word, T *data) {
     return Trie::Result::EMPTY_STRING;
   Node *current = root;
   for (char c : word) {
-    if (current->children.count(c) == 0) {
+    if (current->children[c] == nullptr) {
       current->children[c] = new Node();
     }
     current = current->children[c];
@@ -63,9 +63,10 @@ typename Trie<T>::Result Trie<T>::remove(std::string word) {
     return Trie::Result::EMPTY_STRING;
   Node *current = root;
   for (char c : word) {
-    if (current->children.count(c) == 0) {
+    if (current->children[c] == nullptr) {
       return Trie::Result::NOT_FOUND;
     }
+
     current = current->children[c];
   }
   if (!current->isEnd) {
@@ -83,9 +84,10 @@ typename Trie<T>::Result Trie<T>::contains(std::string word) {
     return Trie::Result::EMPTY_STRING;
   Node *current = root;
   for (char c : word) {
-    if (current->children.count(c) == 0) {
+    if (current->children[c] == nullptr) {
       return Trie::Result::NOT_FOUND;
     }
+
     current = current->children[c];
   }
   return current->isEnd ? Trie::Result::SUCCESS : Trie::Result::NOT_FOUND;
@@ -95,9 +97,10 @@ TRIE_TEMPLATE
 T *Trie<T>::find(std::string word) {
   Node *current = root;
   for (char c : word) {
-    if (current->children.count(c) == 0) {
+    if (current->children[c] == nullptr) {
       return nullptr;
     }
+
     current = current->children[c];
   }
   return current->data;
@@ -110,16 +113,17 @@ std::vector<T *> Trie<T>::startsWith(std::string prefix) {
   std::vector<T *> result;
   Node *current = root;
   for (char c : prefix) {
-    if (current->children.count(c) == 0) {
+    if (current->children[c] == nullptr) {
       return result;
     }
+
     current = current->children[c];
   }
   std::function<void(Node *)> dfs = [&](Node *node) -> void {
     if (node->isEnd) {
       result.push_back(node->data);
     }
-    for (auto &[ch, child] : node->children) {
+    for (auto &child : node->children) {
       dfs(child);
     }
   };

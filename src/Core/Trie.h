@@ -23,7 +23,7 @@ private:
     Node(T *data, bool isEnd = false);
     ~Node();
 
-    std::unordered_map<char, Node *> children;
+    std::vector<Node *> children(sizeof(char) * 256, nullptr);
     T *data;
     bool isEnd;
 
