@@ -1,9 +1,7 @@
 #include "State.h"
 #include "../StateStack.h"
 
-State::State(StateStack &stack, Context context)
-: mStack(&stack)
-, mContext(context) {
+State::State(StateStack &stack, Context context) : mStack(&stack), mContext(context) {
     mNavBar.addNav(NavBar::NavID::Search, [this]() {
         this->requestStackPop();
         this->requestStackPush(StateIDs::Search);
