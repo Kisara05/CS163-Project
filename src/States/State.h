@@ -11,4 +11,4 @@ private:
     StateStack* stack;
     Context context;
 };
-#endif
+//#endif MEMORY.H
