@@ -5,8 +5,7 @@ class StateStack;
 class State {
 public:
 	struct Context {};
-
-
+    
 private:
     StateStack* stack;
     Context context;
