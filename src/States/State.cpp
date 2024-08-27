@@ -1,4 +1,4 @@
-#include "State.h"
+/*#include "State.h"
 #include "../StateStack.h"
 
 State::State(StateStack &stack, Context context) : mStack(&stack), mContext(context) {
@@ -33,4 +33,4 @@ void State::requestStackPop() {
 
 void State::requestStackClear() {
     mStack->clearStates();
-}
+}*/
