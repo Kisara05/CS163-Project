@@ -262,6 +262,12 @@ void InputBox::drawTextWrapped() {
 
 void InputBox::drawCursorIndicator(float x, float y1, float y2) {
     if (mCursorTick < CURSOR_TICK_COUNT) {
-        DrawLineEx({x, y1}, {x, y2}, abs(y1 - y2), mTextColor);
+        if (y1 > y2) {
+            DrawLineEx({x, y1}, {x, y2}, (y1 - y2) * 0.05, mTextColor);
+        }
+        else if (y1 < y2) {
+            DrawLineEx({x, y1}, {x, y2}, (y2 - y1) * 0.05, mTextColor);
+        }
+        else DrawLineEx({x, y1}, {x, y2}, 0, mTextColor);
     }
 }
