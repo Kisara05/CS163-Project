@@ -26,7 +26,7 @@ private:
 
 private:
     const std::vector<Core::Word*> &mList;
-    std::vector<Button::Ptr> mButtonList;
+    std::vector<Button::SmartPointer> mButtonList;
 
     Rectangle mRect;
     float mRowHeight;

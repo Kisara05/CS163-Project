@@ -6,7 +6,6 @@ WordList::WordList(const std::vector<Core::Word*>& list)
     for (int i = 0; i < mList.size(); i++) {
         createNewButton();
     }
-    
 }
 
 WordList::~WordList() {
@@ -56,7 +55,7 @@ void WordList::draw() {
     }
     for (int i = 0; i < mList.size(); i++) {
         float startingPosY = mRect.y + mPositionY + i * mRowHeight;
-        TextBox wordText(mList[i]->orgStr, {mRect.x + 35, startingPosY + 7,
+        TextBox wordText(mList[i]->originalString, {mRect.x + 35, startingPosY + 7,
                                             mRect.width, mRowHeight});
         wordText.setBorderColor(BLANK);
         wordText.setColor(BLANK);

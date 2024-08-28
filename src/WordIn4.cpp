@@ -102,7 +102,7 @@ void WordInfo::draw() {
 
     DrawRectangleRec(mRect, AppColor::BACKGROUND_1);
 
-    TextBox wordText(mWord->orgStr, {mRect.x + 13, mRect.y + 2, 508, 72});
+    TextBox wordText(mWord->originalString, {mRect.x + 13, mRect.y + 2, 508, 72});
     wordText.setTextSize(62);
     wordText.setBorderColor(BLANK);
     wordText.setColor(BLANK);
@@ -191,7 +191,7 @@ void WordInfo::drawInfoMode() {
         if (defPtr->isDeleted())
             continue;
         cnt++;
-        TextBox wordText(std::to_string(cnt) + ". " + defPtr->orgStr,
+        TextBox wordText(std::to_string(cnt) + ". " + defPtr->originalString,
                          {358, startingPosY, 616, 1});
         wordText.setBorderColor(BLANK);
         wordText.setColor(BLANK);
@@ -214,7 +214,7 @@ void WordInfo::addEdittors() {
     for (int i = 0; i < mWord->defs.size(); i++) {
         if (mWord->defs[i]->isDeleted())
             continue;
-        addOneEdittor(mWord->defs[i]->orgStr);
+        addOneEdittor(mWord->defs[i]->originalString);
     }
 }
 

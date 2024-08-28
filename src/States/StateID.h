@@ -1,5 +1,5 @@
-#ifndef STATES_STATEIDENTIFIERS_H
-#define STATES_STATEIDENTIFIERS_H
+#ifndef STATES_STATEID_H
+#define STATES_STATEID_H
 
 enum class StateIDs {
     None,
@@ -11,4 +11,4 @@ enum class StateIDs {
     Settings
 };
 
-#endif // STATES_STATEIDENTIFIERS_H
+#endif // STATES_STATEID_H
