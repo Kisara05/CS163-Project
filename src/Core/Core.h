@@ -110,8 +110,7 @@ public:
   void addFavorite(Word *word);
   void removeFavorite(Word *word);
   bool isFavorite(Word *word);
-  void loadDataFromSpecifier(const std::string &dataSpecifier,
-                             std::vector<std::string> &word);
+  void loadDataFromSpecifier(const std::string &dataSpecifier, std::vector<std::string> &word);
   void loadDataFromHistory(const std::string &dataSpecifier);
   void loadWordLocal(const std::string &dataSpecifier);
   std::string extractFirstWord(const std::string &inputString);
