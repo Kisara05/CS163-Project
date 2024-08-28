@@ -18,9 +18,9 @@ Core::Core(const std::string &inputDefCharSet,
 }
 
 bool Core::Word::isDeleted() {
-  // delete this string
   return string == "";
 }
+
 Core::Definition::Definition(const std::string& str) :originalString(str)
 , str(normalize(str)) {
     rating = 0;
