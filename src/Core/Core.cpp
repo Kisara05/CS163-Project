@@ -391,7 +391,7 @@ void Core::loadWordLocal(const std::string &dataSpecifier) {
   file.close();
 }
 
-Core::Word* Core::addWord(std::string wordString) {
+/* Core::Word* Core::addWord(std::string wordString) {
     Word* newWord = new Word(wordString);
     if (wordSet.insert(newWord) == Trie<Core::Word>::Result::SUCCESS) {
         wordCollection.push_back(newWord);
@@ -400,9 +400,9 @@ Core::Word* Core::addWord(std::string wordString) {
         newWord = nullptr;
     }
     return newWord;
-}
+} */
 
-Core::Definition* Core::addDefinition(std::string defString, Word* word) {
+/* Core::Definition* Core::addDefinition(std::string defString, Word* word) {
     Definition* newDef = new Definition(defString);
     newDef->word = word;
     word->defs.push_back(newDef);
@@ -419,9 +419,9 @@ Core::Definition* Core::addDefinition(std::string defString, Word* word) {
         myDefWord->defs.push_back(newDef);
     }
     return newDef;
-}
+} */
 
-void Core::editDefinition(Core::Definition* def, const std::string& newDef) {
+/* void Core::editDefinition(Core::Definition* def, const std::string& newDef) {
     def->str = "";
     addDefinition(newDef, def->word);
-}
+} */
