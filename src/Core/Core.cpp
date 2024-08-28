@@ -21,10 +21,10 @@ bool Core::Word::isDeleted() {
   return string == "";
 }
 
-Core::Definition::Definition(const std::string& str) :originalString(str)
-, str(normalize(str)) {
-    rating = 0;
+Core::Definition::Definition(const std::string& str) :originalString(str), str(normalize(str)) {
+  rating = 0;
 }
+
 // Random tasks:
 
 Core::Word *Core::getRandomWord() {
@@ -89,9 +89,7 @@ std::pair<Core::Definition *, std::array<Core::Word *, 5>>Core::getDefinitionQui
       choices[i] = randomWord;
     }
   }
-  return std::make_pair(question, std::array<Word*, 5>{choices[0], choices[1],
-                                                        choices[2], choices[3],
-                                                        choices[4]});
+  return std::make_pair(question, std::array<Word*, 5>{choices[0], choices[1],choices[2], choices[3], choices[4]});
 }
 
 // End of Random tasks
@@ -101,13 +99,11 @@ void Core::resetDefault() {
   std::string dataPath = "data/dictionary-data/" + dataSpecifier;
   wordSet.clear();
   defWordSet.clear();
-  for (std::vector<Word*>::iterator ptr = wordCollection.begin();
-       ptr != wordCollection.end(); ++ptr) {
+  for (std::vector<Word*>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
     delete *ptr;
   }
   wordCollection.clear();
-  for (std::vector<Definition*>::iterator ptr = defCollection.begin();
-       ptr != defCollection.end(); ++ptr) {
+  for (std::vector<Definition*>::iterator ptr = defCollection.begin(); ptr != defCollection.end(); ++ptr) {
     delete *ptr;
   }
   defCollection.clear();
@@ -118,8 +114,9 @@ void Core::resetDefault() {
 void Core::addFavorite(Word *word) {
   if (word->IsFavorite == false) {
     word->IsFavorite = true;
-  } else {
-    std::cout << "You have already added this favorite word.\n";
+  }
+  else {
+    std::cout << "You have already added this favorite word!\n";
     return;
   }
 }
@@ -127,14 +124,14 @@ void Core::addFavorite(Word *word) {
 void Core::removeFavorite(Word *word) {
   if (word->IsFavorite == true) {
     word->IsFavorite = false;
-  } else {
+  }
+  else {
     std::cout << "This has yet been added as favorite word.\n";
     return;
   }
 }
 
 bool Core::isFavorite(Word *word) {
-  // Check if is favorite
   return word->IsFavorite;
 }
 
@@ -144,7 +141,8 @@ Core::Word *Core::addWord(std::string wordToBeAdded) {
   Word *newWord = new Word(wordToBeAdded);
   if (wordSet.insert(newWord) == Trie<Word>::Result::SUCCESS) {
     wordCollection.push_back(newWord);
-  } else {
+  }
+  else {
     delete newWord;
     newWord = nullptr;
   }
@@ -161,8 +159,7 @@ void Core::removeWord(Word *word) {
   }
 }
 
-void Core::loadDataFromSpecifier(const std::string &dataSpecifier,
-                                 std::vector<std::string> &word) {
+void Core::loadDataFromSpecifier(const std::string &dataSpecifier, std::vector<std::string> &word) {
   std::string datasetPath = dataSpecifier + "/data.txt";
   std::ifstream file(datasetPath);
   if (!file.is_open()) {
@@ -174,30 +171,31 @@ void Core::loadDataFromSpecifier(const std::string &dataSpecifier,
     word.push_back(extractFirstWord(line));
   }
   file.close();
-
-  for (int i = 0; i < word.size(); i++) {
+  for (int i = 0; i < word.size(); ++i) {
     Word *myWord = wordSet.find(word[i]);
     if (myWord != nullptr)
       addFavorite(myWord);
     else
-      std::cout << "Error getting fav words\n";
+      std::cout << "Error getting the favorite words\n";
   }
 }
+
 void Core::updateHistory(Word *word) {
   if (!word) return;
   bool found = false;
   for (int i = 0; i < history.size(); ++i) {
     if (history[i] == word) {
-        found = true;
-        history.erase(history.begin() + i);
-        break;
+      found = true;
+      history.erase(history.begin() + i);
+      break;
     }
-}
+  }
   if (found) {
     history.insert(history.begin(), word);
-  } else {
+  }
+  else {
     if (history.size() >= RESULT_LIMIT) {
-        history.pop_back();
+      history.pop_back();
     }
     history.insert(history.begin(), word);
   }
@@ -210,11 +208,12 @@ std::vector<Core::Word*> Core::getHistory() {
     }
   }
 }
+
 std::vector<Core::Word*> Core::getFavoriteList() {
   std::vector<Word*> favWords;
   for (int i = 0; i < wordCollection.size(); ++i) {
     if (wordCollection[i]->IsFavorite) {
-        favWords.push_back(wordCollection[i]);
+      favWords.push_back(wordCollection[i]);
     }
   }
   return favWords;
@@ -231,11 +230,12 @@ void Core::loadDataFromHistory(const std::string &dataSpecifier) {
   while (std::getline(file, line)) {
     Word *myWord = wordSet.find(line);
     if (myWord != nullptr) {
-        history.push_back(myWord);
+      history.push_back(myWord);
     }
     file.close();
   }
 }
+
 Core::~Core() {
   saveToFile();
   for (std::vector<Word*>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
@@ -255,41 +255,48 @@ std::vector<Core::Word*> Core::searchKeyword(const std::string& inputString) {
 
 void Core::equivalentFilter1(std::vector<Core::Definition*>& defResults, const std::string& inputString) {
     ratingCleanUp();
-    for (std::vector<std::string>::iterator wordStr = split(inputString, ' ').begin(); wordStr != split(inputString, ' ').end(); ++wordStr) {
-        Core::DefWord* ptr = defWordSet.find(*wordStr);
-        if (ptr != nullptr) {
-            for (std::vector<Core::Definition*>::iterator defPtr = ptr->defs.begin(); defPtr != ptr->defs.end(); ++defPtr) {
-                if (!(*defPtr)->isDeleted()) (*defPtr)->rating++;
-            }
-        }
-    }
-    sort(defResults.begin(), defResults.end(), [](Core::Definition* x, Core::Definition* y) {
-        return x->rating > y->rating;
-    });
-    defResults.resize(RESULT_LIMIT * RESULT_LIMIT);
-    while (defResults.size() && defResults.back()->rating == 0) defResults.pop_back();
+    for (std::vector<std::string>::iterator wordStr = split(inputString, ' ').begin();
+         wordStr != split(inputString, ' ').end(); ++wordStr) {
+          Core::DefWord* ptr = defWordSet.find(*wordStr);
+          if (ptr != nullptr) {
+            for (std::vector<Core::Definition*>::iterator defPtr = ptr->defs.begin();
+                 defPtr != ptr->defs.end(); ++defPtr) {
+                  if (!(*defPtr)->isDeleted()) {
+                    (*defPtr)->rating++;
+                  }
+                 }
+                }
+              }
+              sort(defResults.begin(), defResults.end(), [](Core::Definition* x, Core::Definition* y) {
+                return x->rating > y->rating;
+              });
+              defResults.resize(RESULT_LIMIT * RESULT_LIMIT);
+              while (defResults.size() && defResults.back()->rating == 0) {
+                defResults.pop_back();
+              }
 }
 
 void Core::equivalentFilter2(std::vector<Core::Definition*>& defResults, const std::string& inputString) {
     ratingCleanUp();
     std::vector<std::string> inputList = split(inputString, ' ');
-    for (std::vector<Core::Definition*>::iterator defPtr = defResults.begin(); defPtr != defResults.end(); ++defPtr) {
-        if ((*defPtr)->isDeleted()) continue;
-        std::vector<std::string> defList = split((*defPtr)->str, ' ');
-        std::vector<std::vector<int>> dp(inputList.size() + 1, std::vector<int>(defList.size() + 1, 0));
-        for (int i = 1; i <= inputList.size(); ++i) {
+    for (std::vector<Core::Definition*>::iterator defPtr = defResults.begin();
+         defPtr != defResults.end(); ++defPtr) {
+          if ((*defPtr)->isDeleted()) continue;
+          std::vector<std::string> defList = split((*defPtr)->str, ' ');
+          std::vector<std::vector<int>> dp(inputList.size() + 1, std::vector<int>(defList.size() + 1, 0));
+          for (int i = 1; i <= inputList.size(); ++i) {
             for (int j = 1; j <= defList.size(); ++i) {
-                dp[i][j] = std::max(dp[i - 1][j], dp[i][j - 1]);
-                if (inputList[i - 1] == defList[j - 1]) {
-                    dp[i][j]  = std::max(dp[i][j], dp[i - 1][j - 1] + 1);
-                }
+              dp[i][j] = std::max(dp[i - 1][j], dp[i][j - 1]);
+              if (inputList[i - 1] == defList[j - 1]) {
+                dp[i][j]  = std::max(dp[i][j], dp[i - 1][j - 1] + 1);
+              }
             }
+          }
+          (*defPtr)->rating = dp[inputList.size()][defList.size()];
         }
-        (*defPtr)->rating = dp[inputList.size()][defList.size()];
-    }
-    sort(defResults.begin(), defResults.end(), [](Core::Definition* x, Core::Definition* y) {
-        return x->rating > y->rating;
-    });
+        sort(defResults.begin(), defResults.end(), [](Core::Definition* x, Core::Definition* y) {
+          return x->rating > y->rating;
+        });
 }
 
 std::vector<Core::Word*>Core::searchDefinition(const std::string &inputString) {
@@ -298,8 +305,7 @@ std::vector<Core::Word*>Core::searchDefinition(const std::string &inputString) {
   equivalentFilter1(defResults, normalizedString);
   equivalentFilter2(defResults, normalizedString);
   std::vector<Word*> ret;
-  for (std::vector<Definition*>::iterator defPtr = defResults.begin();
-       defPtr != defResults.end(); ++defPtr) {
+  for (std::vector<Definition*>::iterator defPtr = defResults.begin(); defPtr != defResults.end(); ++defPtr) {
     if ((*defPtr)->isDeleted()) continue;
     bool isDuplicated = false;
     for (std::vector<Word*>::iterator wordPtr = ret.begin(); wordPtr != ret.end(); ++wordPtr) {
@@ -308,7 +314,9 @@ std::vector<Core::Word*>Core::searchDefinition(const std::string &inputString) {
         break;
       }
     }
-    if (!isDuplicated) ret.push_back((*defPtr)->word);
+    if (!isDuplicated) {
+      ret.push_back((*defPtr)->word);
+    }
     if (ret.size() == RESULT_LIMIT) break;
   }
   return ret;
