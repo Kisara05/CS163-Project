@@ -1,7 +1,7 @@
-#ifndef RESOURCEHOLDERS_FONTHOLDER_H
-#define RESOURCEHOLDERS_FONTHOLDER_H
+#ifndef FONTHOLDER_H
+#define FONTHOLDER_H
 
-#include "ResourceIdentifiers.h"
+#include "ResourceID.h"
 
 #include "raylib.h"
 
@@ -36,4 +36,4 @@ private:
     void insertResource(int size, FontID id, std::unique_ptr<Font> resource);
 };
 
-#endif // RESOURCEHOLDERS_FONTHOLDER_H
+#endif // FONTHOLDER_H
