@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+#ifndef STATES_STATE_H
+#define STATES_STATE_H
+
+>>>>>>> 35a737ab971032c5e5ea341191577a0c7776152a
 #include "../ColorPalettes/AppColorPalette.h"
 #include "../ResourceHolders/TextureHolder.h"
 #include "StateID.h"
@@ -10,7 +16,10 @@ class StateStack;
 class State {
 public:
     typedef std::unique_ptr<State> Ptr;
-	struct Context {};
+
+    struct Context {};
+
+public:
     State(StateStack &stack, Context context);
     virtual ~State();
 
@@ -27,4 +36,9 @@ private:
     StateStack* mStack;
     Context mContext;
 };
+<<<<<<< HEAD
 //#endif MEMORY.H
+=======
+
+#endif // STATES_STATE_H
+>>>>>>> 35a737ab971032c5e5ea341191577a0c7776152a

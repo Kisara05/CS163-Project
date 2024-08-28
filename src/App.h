@@ -1,6 +1,8 @@
 #ifndef APP_H
 #define APP_H
-#include "StateStack.h"
+//#include "StateStack.h"
+
+class StateStack;
 
 class App {
 public:
@@ -18,8 +20,13 @@ public:
     void renderApp();
     void update(float dt);
 
+    void registerStates();
+
+    void loadTextures();
+    void loadFonts();
+
 private:
-    StateStack stateStack;
+    StateStack mStateStack;
 };
 
 #endif

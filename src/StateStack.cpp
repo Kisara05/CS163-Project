@@ -1,7 +1,8 @@
 #include "StateStack.h"
+#include <cassert>
 
 StateStack::StateStack(State::Context context)
-	: context(context) {
+: mContext(context) {
 }
 
 void StateStack::draw() {
