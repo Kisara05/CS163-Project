@@ -1,9 +1,31 @@
 #include <iostream>
+#include "ResourceHolders/ResourceID.h"
 #include "App.h"
 #include "raylib.h"
+#include "States/SearchState.h"
+#include "States/FavorState.h"
+#include "States/GameState.h"
+#include "States/WordGameState.h"
+#include "States/DefyGameState.h"
+#include "States/SettingsState.h"
+#include "States/StateID.h"
+#include "StateStack.h"
 
-App::App() {
+App::App() : mStateStack(State::Context()) {
+    SetConfigFlags(FLAG_MSAA_4X_HINT);
+    SetConfigFlags(FLAG_WINDOW_ALWAYS_RUN);
 
+    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+    SetTargetFPS(FPS);
+
+    loadTextures();
+    loadFonts();
+
+    // SetWindowIcon(LoadImageFromTexture(
+    //     TextureHolder::getInstance().get(TextureID::IconLogo)));
+
+    registerStates();
+    mStateStack.pushState(StateIDs::Search);
 }
 
 App::~App() {
@@ -19,6 +41,6 @@ void App::initApp() {
 
 void App::renderApp() {
     BeginDrawing();
-    stateStack.draw();
+    mStateStack.draw();
     EndDrawing();
 }

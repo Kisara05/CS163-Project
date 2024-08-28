@@ -1,5 +1,5 @@
-#ifndef STATE_H
-#define STATE_H
+#ifndef STATES_STATE_H
+#define STATES_STATE_H
 
 #include "../ColorPalettes/AppColorPalette.h"
 #include "../ResourceHolders/TextureHolder.h"
@@ -13,7 +13,10 @@ class StateStack;
 class State {
 public:
     typedef std::unique_ptr<State> Ptr;
-	struct Context {};
+
+    struct Context {};
+
+public:
     State(StateStack &stack, Context context);
     virtual ~State();
 
@@ -31,4 +34,4 @@ private:
     Context mContext;
 };
 
-#endif // STATE_H
+#endif // STATES_STATE_H

@@ -2,6 +2,8 @@
 #define APP_H
 #include "StateStack.h"
 
+class StateStack;
+
 class App {
 public:
     static constexpr float WINDOW_WIDTH = 1024;
@@ -18,8 +20,13 @@ public:
     void renderApp();
     void update(float dt);
 
+    void registerStates();
+
+    void loadTextures();
+    void loadFonts();
+
 private:
-    StateStack stateStack;
+    StateStack mStateStack;
 };
 
 #endif

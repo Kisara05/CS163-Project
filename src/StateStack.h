@@ -48,6 +48,7 @@ private:
     std::vector<PendingChange> pendingList;
 
     std::map<StateIDs, std::function<State::Ptr()>> factories;
-    State::Context context;
+    State::Context mContext;
 };
+
 #endif // STATESTACK_H
