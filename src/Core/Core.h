@@ -41,7 +41,7 @@ public:
   };
 
   struct Word {
-    std::string orginalString;
+    std::string originalString;
     std::string string;
     std::vector<Definition *> defs;
     bool IsFavorite{false};
@@ -51,12 +51,12 @@ public:
 
   public:
     friend void from_json(const nlohmann::json &j, Word &w) {
-      j.at("orginalString").get_to(w.orginalString);
+      j.at("orginalString").get_to(w.originalString);
       j.at("string").get_to(w.string);
       j.at("IsFavorite").get_to(w.IsFavorite);
 
       for (auto def : j.at("defs")) {
-        auto d = new Definition;
+        Core::Definition* d = new Definition;
         def.get_to(*d);
         d->word = &w;
         w.defs.push_back(d);
@@ -64,7 +64,7 @@ public:
     }
 
     friend void to_json(nlohmann::json &j, const Word &w) {
-      j["orginalString"] = w.orginalString;
+      j["orginalString"] = w.originalString;
       j["string"] = w.string;
       j["IsFavorite"] = w.IsFavorite;
 
@@ -76,7 +76,7 @@ public:
 
   struct DefWord {
     std::string str;
-    std::vector<Definition *> defs;
+    std::vector<Definition*> defs;
     DefWord(const std::string &str);
 
   public:
@@ -84,7 +84,7 @@ public:
       j.at("str").get_to(dw.str);
 
       for (auto def : j.at("defs")) {
-        auto d = new Definition;
+        Core::Definition* d = new Definition;
         def.get_to(*d);
         dw.defs.push_back(d);
       }

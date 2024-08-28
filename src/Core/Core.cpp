@@ -3,8 +3,7 @@
 #include <iostream>
 #include <vector>
 
-Core::Word::Word(const std::string &str)
-    : orginalString(str), string(convertToNonAccentVN(str)) {}
+Core::Word::Word(const std::string &str) : originalString(str), string(convertToNonAccentVN(str)) {}
 
 Core::Core(const std::string &inputDefCharSet,
            const std::string &inputSpecifier,
