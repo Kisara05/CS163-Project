@@ -38,7 +38,7 @@ SearchState::SearchState(StateStack &stack, Context context)
             // Dictionary::getInstance().getDict().searchKeyword(
             //     this->mSearchBar.getInputText());
             if (!this->mWordList.empty()
-                && this->mWordList[0]->str == this->mSearchBar.getInputText()) {
+                && this->mWordList[0]->string == this->mSearchBar.getInputText()) {
                 this->mScrollList.setWord(this->mWordList[0]);
             }
         }
