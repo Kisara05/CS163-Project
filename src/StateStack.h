@@ -23,7 +23,6 @@ private:
     struct PendingChange {
         explicit PendingChange(Action action,
             StateIDs stateID = StateIDs::None);
-
         Action action;
         StateIDs stateID;
     };
