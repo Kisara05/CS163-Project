@@ -1,8 +1,6 @@
 #ifndef STATESTACK_H
 #define STATESTACK_H
 
-#include "StateStack.inl"
-
 #include "States/State.h"
 #include "States/StateID.h"
 
@@ -13,8 +11,8 @@
 class StateStack {
 public:
     explicit StateStack(State::Context context);
-    template <typename StateType>
 
+    template <typename StateType>
     void registerState(StateIDs stateID);
 
     void update(float dt);
@@ -26,8 +24,6 @@ public:
 
     bool isEmpty() const;
 
-    void draw();
-
 private:
     enum class Action {
         Push,
@@ -36,19 +32,25 @@ private:
     };
 
     struct PendingChange {
-        explicit PendingChange(Action action, StateIDs stateID = StateIDs::None);
+        explicit PendingChange(Action action,
+                               StateIDs stateID = StateIDs::None);
+
         Action action;
         StateIDs stateID;
     };
 
+private:
     void applyPendingChange();
+
     State::Ptr createState(StateIDs stateID);
 
-    std::vector<State::Ptr> stack;
-    std::vector<PendingChange> pendingList;
+private:
+    std::vector<State::Ptr> mStack;
+    std::vector<PendingChange> mPendingList;
 
-    std::map<StateIDs, std::function<State::Ptr()>> factories;
+    std::map<StateIDs, std::function<State::Ptr()>> mFactories;
     State::Context mContext;
 };
 
+#include "StateStack.inl"
 #endif // STATESTACK_H
