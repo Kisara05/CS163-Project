@@ -96,7 +96,7 @@ void WordGameState::draw() {
         subtitleText.setColor(BLANK);
         subtitleText.draw();
 
-        TextBox wordText(mQuiz.first->orgStr, {331, 64, 498, 84});
+        TextBox wordText(mQuiz.first->originalString, {331, 64, 498, 84});
         wordText.setTextSize(75);
         wordText.setBorderColor(BLANK);
         wordText.setColor(BLANK);
@@ -108,7 +108,7 @@ void WordGameState::draw() {
         }
         for (int i = 0; i < 4; i++) {
             mChoices[i].draw();
-            TextBox defText(mQuiz.second[i + 1]->orgStr, mChoices[i].getRect());
+            TextBox defText(mQuiz.second[i + 1]->originalString, mChoices[i].getRect());
             defText.setTextSize(20);
             defText.setColor(BLANK);
             defText.setBorderColor(BLANK);
