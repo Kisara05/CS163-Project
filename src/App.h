@@ -1,6 +1,8 @@
 #ifndef APP_H
 #define APP_H
 
+#include "StateStack.h"
+
 class App {
 public:
     static constexpr float WINDOW_WIDTH = 1024;

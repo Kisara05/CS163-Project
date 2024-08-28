@@ -1,7 +1,7 @@
 #include "StateStack.h"
 
-StateStack::StateStack(State::Context Context)
-	: context(Context) {
+StateStack::StateStack(State::Context context)
+	: context(context) {
 }
 
 void StateStack::draw() {
