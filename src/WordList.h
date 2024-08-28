@@ -4,7 +4,7 @@
 #include "Core/Core.h"
 #include "GUIComponents/Button.h"
 #include "GUIComponents/TextBox.h"
-#include "WordInfo.h"
+#include "WordIn4.h"
 
 #include "raylib.h"
 
