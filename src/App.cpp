@@ -1,7 +1,7 @@
 #include <iostream>
 #include "App.h"
 
-App::App()
+App::App() {
 
 }
 
@@ -10,7 +10,7 @@ App::~App() {
 }
 
 void App::initApp() {
-    while (!WindowShouldClose()) //check if KEY_ESCAPE or Exit button is pressed {
+    while (!WindowShouldClose()) {//check if KEY_ESCAPE or Exit button is pressed {
         update(GetFrameTime());
         renderApp();
     }
