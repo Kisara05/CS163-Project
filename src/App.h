@@ -15,8 +15,10 @@ public:
 
     void initApp();
     void renderApp();
+    void update(float dt);
 
 private:
+    StateStack stateStack;
 };
 
 #endif
