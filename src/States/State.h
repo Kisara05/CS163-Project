@@ -1,11 +1,9 @@
-
-
 #include "../ColorPalettes/AppColorPalette.h"
 #include "../ResourceHolders/TextureHolder.h"
 #include "StateID.h"
 #include "../NavBar.h"
 
-#include <memory.h>
+#include "memory.h"
 
 class StateStack;
 
@@ -29,3 +27,4 @@ private:
     StateStack* mStack;
     Context mContext;
 };
+//#endif MEMORY.H
