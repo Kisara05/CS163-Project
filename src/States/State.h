@@ -1,3 +1,6 @@
+#ifndef STATE_H
+#define STATE_H
+
 #include "../ColorPalettes/AppColorPalette.h"
 #include "../ResourceHolders/TextureHolder.h"
 #include "StateID.h"
@@ -27,4 +30,5 @@ private:
     StateStack* mStack;
     Context mContext;
 };
-//#endif MEMORY.H
+
+#endif // STATE_H
