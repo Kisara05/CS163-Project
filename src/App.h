@@ -1,5 +1,6 @@
 #ifndef APP_H
 #define APP_H
+#include "StateStack.h"
 
 #include "StateStack.h"
 
@@ -17,8 +18,10 @@ public:
 
     void initApp();
     void renderApp();
+    void update(float dt);
 
 private:
+    StateStack stateStack;
 };
 
 #endif
