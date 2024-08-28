@@ -23,7 +23,7 @@ private:
     Node(T *data, bool isEnd = false);
     ~Node();
 
-    std::vector<Node *> children(sizeof(char) * 256, nullptr);
+    std::vector<Node *> children;
     T *data;
     bool isEnd;
 

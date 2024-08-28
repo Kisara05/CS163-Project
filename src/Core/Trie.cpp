@@ -2,10 +2,10 @@
 #include <functional>
 
 TRIE_TEMPLATE
-Trie<T>::Node::Node() : data(nullptr), isEnd(false) {}
+Trie<T>::Node::Node() : data(nullptr), isEnd(false), children(256, nullptr) {}
 
 TRIE_TEMPLATE
-Trie<T>::Node::Node(T *data, bool isEnd) : data(data), isEnd(isEnd) {}
+Trie<T>::Node::Node(T *data, bool isEnd) : data(data), isEnd(isEnd), children(256, nullptr) {}
 
 TRIE_TEMPLATE
 Trie<T>::Node::~Node() {
