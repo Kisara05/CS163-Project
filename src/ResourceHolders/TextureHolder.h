@@ -3,7 +3,7 @@
 #include "raylib.h"
 using namespace std;
 
-#include "ResourceIdentifiers.h"
+#include "ResourceID.h"
 
 #include "raylib.h"
 
