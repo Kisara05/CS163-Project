@@ -96,7 +96,7 @@ void DefinitionGameState::draw() {
         subtitleText.setColor(BLANK);
         subtitleText.draw();
 
-        TextBox defText(mQuiz.first->orgStr, {346, 96, 606, 1});
+        TextBox defText(mQuiz.first->originalString, {346, 96, 606, 1});
         defText.setTextSize(25);
         defText.setBorderColor(BLANK);
         defText.setColor(BLANK);
@@ -107,7 +107,7 @@ void DefinitionGameState::draw() {
         }
         for (int i = 0; i < 4; i++) {
             mChoices[i].draw();
-            TextBox wordText(mQuiz.second[i + 1]->orgStr,
+            TextBox wordText(mQuiz.second[i + 1]->originalString,
                              mChoices[i].getRect());
             wordText.setTextSize(40);
             wordText.setColor(BLANK);
