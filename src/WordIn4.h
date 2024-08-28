@@ -1,5 +1,5 @@
-#ifndef WORDINFO_H
-#define WORDINFO_H
+#ifndef WORDIN4_H
+#define WORDIN4_H
 
 #include "Core/Core.h"
 #include "Core/Dictionary.h"

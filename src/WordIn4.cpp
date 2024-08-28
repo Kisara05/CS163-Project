@@ -1,4 +1,4 @@
-#include "WordInfo.h"
+#include "WordIn4.h"
 
 WordInfo::WordInfo() {
     mStarButton.setRect({946, 196, 33, 33});

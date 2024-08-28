@@ -1,4 +1,4 @@
-#include "FavoriteState.h"
+#include "FavorState.h"
 
 FavoriteState::FavoriteState(StateStack& stack, Context context)
 : State(stack, context)

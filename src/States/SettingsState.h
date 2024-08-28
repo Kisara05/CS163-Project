@@ -5,7 +5,7 @@
 #include "../GUIComponents/TextBox.h"
 #include "../GUIComponents/InputBox.h"
 #include "../GUIComponents/Button.h"
-#include "../WordInfo.h"
+#include "../WordIn4.h"
 #include "State.h"
 
 #include <map>
