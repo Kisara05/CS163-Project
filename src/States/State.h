@@ -24,7 +24,7 @@ protected:
     void requestStackClear();
 
 private:
-    StateStack* stack;
-    Context context;
+    StateStack* mStack;
+    Context mContext;
 };
 //#endif MEMORY.H
