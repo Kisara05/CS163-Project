@@ -1,6 +1,7 @@
 #include "InputBox.h"
 
 #include <iostream>
+#include <sstream>
 
 InputBox::InputBox(std::string defaultText, Rectangle bounds) {
     mRect = bounds;
