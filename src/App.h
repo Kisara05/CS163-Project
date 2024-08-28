@@ -3,6 +3,7 @@
 #include "ResourceHolders/FontHolder.h"
 #include "ResourceHolders/TextureHolder.h"
 #include "StateStack.h"
+#include "raylib.h"
 
 class App {
 public:
