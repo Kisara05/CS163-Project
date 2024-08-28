@@ -9,7 +9,6 @@
 #include "States/DefyGameState.h"
 #include "States/SettingsState.h"
 #include "States/StateID.h"
-#include "StateStack.h"
 
 App::App() : mStateStack(State::Context()) {
     SetConfigFlags(FLAG_MSAA_4X_HINT);

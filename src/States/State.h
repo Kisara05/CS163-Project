@@ -25,12 +25,14 @@ public:
 
 protected:
     NavBar mNavBar;
+
+protected:
     void requestStackPush(StateIDs stateID);
     void requestStackPop();
     void requestStackClear();
 
 private:
-    StateStack* mStack;
+    StateStack *mStack;
     Context mContext;
 };
 

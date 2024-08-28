@@ -1,8 +1,8 @@
 #ifndef APP_H
 #define APP_H
-//#include "StateStack.h"
-
-class StateStack;
+#include "ResourceHolders/FontHolder.h"
+#include "ResourceHolders/TextureHolder.h"
+#include "StateStack.h"
 
 class App {
 public:
