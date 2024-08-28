@@ -6,13 +6,13 @@ StateStack::StateStack(State::Context context)
 }
 
 void StateStack::draw() {
-    for (auto& state : stack) {
+    for (auto &state : mStack) {
         state->draw();
     }
 }
 
 bool StateStack::isEmpty() const {
-    return stack.empty();
+    return mStack.empty();
 }
 
 StateStack::PendingChange::PendingChange(Action action, StateIDs stateID)
@@ -21,20 +21,20 @@ StateStack::PendingChange::PendingChange(Action action, StateIDs stateID)
 }
 
 void StateStack::applyPendingChange() {
-    for (auto& changer : pendingList) {
-        switch (changer.action) {
-        case Action::Push:
-            stack.push_back(createState(changer.stateID));
-            break;
+    for (auto &change : mPendingList) {
+        switch (change.action) {
+            case Action::Push:
+                mStack.push_back(createState(change.stateID));
+                break;
 
-        case Action::Pop:
-            stack.pop_back();
-            break;
+            case Action::Pop:
+                mStack.pop_back();
+                break;
 
-        case Action::Clear:
-            stack.clear();
-            break;
+            case Action::Clear:
+                mStack.clear();
+                break;
         }
     }
-    pendingList.clear();
+    mPendingList.clear();
 }
