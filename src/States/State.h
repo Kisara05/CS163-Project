@@ -6,7 +6,7 @@
 #include "StateID.h"
 #include "../NavBar.h"
 
-#include "memory.h"
+#include <memory>
 
 class StateStack;
 
