@@ -46,7 +46,7 @@ public:
     std::vector<Definition *> defs;
     bool IsFavorite{false};
     Word(const std::string &str);
-
+    std::string getWord();
     bool isDeleted();
 
   public:
@@ -78,6 +78,7 @@ public:
     std::string str;
     std::vector<Definition*> defs;
     DefWord(const std::string &str);
+    std::string getWord();
 
   public:
     friend void from_json(const nlohmann::json &j, DefWord &dw) {

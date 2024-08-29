@@ -131,6 +131,14 @@ void Core::removeFavorite(Word *word) {
   }
 }
 
+std::string Core::Word:: getWord() {
+  return string;
+}
+
+std::string Core::DefWord:: getWord() {
+  return str;
+}
+
 bool Core::isFavorite(Word *word) {
   return word->IsFavorite;
 }
