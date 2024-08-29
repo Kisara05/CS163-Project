@@ -28,7 +28,7 @@ public:
     bool isDeleted();
 
   public:
-    friend void from_json(const nlohmann::json &j, Definition &d) {
+    /* friend void from_json(const nlohmann::json &j, Definition &d) {
       j.at("originalString").get_to(d.originalString);
       j.at("str").get_to(d.str);
       d.word = nullptr;
@@ -37,7 +37,7 @@ public:
     friend void to_json(nlohmann::json &j, const Definition &d) {
       j["originalString"] = d.originalString;
       j["string"] = d.str;
-    }
+    } */ 
   };
 
   struct Word {
@@ -50,7 +50,7 @@ public:
     bool isDeleted();
 
   public:
-    friend void from_json(const nlohmann::json &j, Word &w) {
+    /* friend void from_json(const nlohmann::json &j, Word &w) {
       j.at("orginalString").get_to(w.originalString);
       j.at("string").get_to(w.string);
       j.at("IsFavorite").get_to(w.IsFavorite);
@@ -71,7 +71,7 @@ public:
       for (auto def : w.defs) {
         j["defs"].push_back(*def);
       }
-    }
+    } */ 
   };
 
   struct DefWord {
@@ -81,7 +81,7 @@ public:
     std::string getWord();
 
   public:
-    friend void from_json(const nlohmann::json &j, DefWord &dw) {
+    /* friend void from_json(const nlohmann::json &j, DefWord &dw) {
       j.at("str").get_to(dw.str);
 
       for (auto def : j.at("defs")) {
@@ -97,7 +97,7 @@ public:
       for (auto def : dw.defs) {
         j["defs"].push_back(*def);
       }
-    }
+    } */ 
   };
 
   Core(const std::string &dataName, const std::string &specifier,
@@ -145,8 +145,8 @@ private:
 
   std::string dataName;
   std::string dataSpecifier;
-  void loadFromFile();
-  void saveToFile();
+  //void loadFromFile();
+  //void saveToFile();
   void ratingCleanUp();
   void equivalentFilter1(std::vector<Definition *> &defResults, const std::string &inputString);
   void equivalentFilter2(std::vector<Definition *> &defResults, const std::string &inputString);

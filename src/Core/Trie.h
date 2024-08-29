@@ -28,7 +28,7 @@ private:
     bool isEnd;
 
   public:
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Node, children, data, isEnd)
+    //NLOHMANN_DEFINE_TYPE_INTRUSIVE(Node, children, data, isEnd)
   };
 
 public:
@@ -48,8 +48,8 @@ private:
 private:
   Node *root;
 public:
-  NLOHMANN_DEFINE_TYPE_INTRUSIVE(Trie, root)
+  //NLOHMANN_DEFINE_TYPE_INTRUSIVE(Trie, root)
 };
-#include "Trie.cpp"
+#include "Trie.inl"
 
 #endif // TRIE_H

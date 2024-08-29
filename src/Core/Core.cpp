@@ -14,7 +14,7 @@ Core::Core(const std::string &inputDefCharSet,
   std::cout << "Now loading: " << dataSpecifier << "...\n";
   defWordSet.insert(inputDefCharSet);
   wordSet.insert(inputWordCharSet);
-  loadFromFile();
+  //loadFromFile();
 }
 
 bool Core::Word::isDeleted() {
@@ -23,6 +23,10 @@ bool Core::Word::isDeleted() {
 
 Core::Definition::Definition(const std::string& str) :originalString(str), str(normalize(str)) {
   rating = 0;
+}
+
+bool Core::Definition::isDeleted() {
+    return str == "";
 }
 
 // Random tasks:
@@ -245,7 +249,7 @@ void Core::loadDataFromHistory(const std::string &dataSpecifier) {
 }
 
 Core::~Core() {
-  saveToFile();
+  //saveToFile();
   for (std::vector<Word*>::iterator ptr = wordCollection.begin(); ptr != wordCollection.end(); ++ptr) {
     delete *ptr;
   }

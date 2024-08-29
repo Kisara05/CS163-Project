@@ -7,7 +7,7 @@
 #define likely(x)       __builtin_expect(!!(x), 1)
 #define unlikely(x)     __builtin_expect(!!(x), 0)
 
-void Core::saveToFile() {
+/* void Core::saveToFile() {
     std::filesystem::path dataPath("data");
     auto wordSetPath = dataPath / "local" / dataSpecifier / "data.json";
 
@@ -37,4 +37,4 @@ void Core::loadFromFile() {
     nlohmann::json j = nlohmann::json::parse(defWordSetFile);
     defWordSet = j.template get<Trie<DefWord>>();
     defWordSetFile.close();
-}
+} */ 
