@@ -223,6 +223,7 @@ std::vector<Core::Word*> Core::getHistory() {
         history.erase(history.begin() + i);
     }
   }
+  return history;
 }
 
 std::vector<Core::Word*> Core::getFavoriteList() {
