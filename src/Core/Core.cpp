@@ -398,38 +398,3 @@ void Core::loadWordLocal(const std::string &dataSpecifier) {
   }
   file.close();
 }
-
-/* Core::Word* Core::addWord(std::string wordString) {
-    Word* newWord = new Word(wordString);
-    if (wordSet.insert(newWord) == Trie<Core::Word>::Result::SUCCESS) {
-        wordCollection.push_back(newWord);
-    } else {
-        delete newWord;
-        newWord = nullptr;
-    }
-    return newWord;
-} */
-
-/* Core::Definition* Core::addDefinition(std::string defString, Word* word) {
-    Definition* newDef = new Definition(defString);
-    newDef->word = word;
-    word->defs.push_back(newDef);
-    defCollection.push_back(newDef);
-    for (std::vector<std::string>::iterator defWordStr = split(newDef->str, ' ').begin(); defWordStr != split(newDef->str, ' ').end(); ++defWordStr) {
-        DefWord* myDefWord;
-        if ((*defWordStr).size() <= 2) continue;
-        myDefWord = defWordSet.find(*defWordStr);
-        if (myDefWord == nullptr) {
-            myDefWord = new DefWord((*defWordStr));
-            defWordCollection.push_back(myDefWord);
-            defWordSet.insert(myDefWord);
-        }
-        myDefWord->defs.push_back(newDef);
-    }
-    return newDef;
-} */
-
-/* void Core::editDefinition(Core::Definition* def, const std::string& newDef) {
-    def->str = "";
-    addDefinition(newDef, def->word);
-} */
