@@ -143,6 +143,10 @@ std::string Core::DefWord:: getWord() {
   return str;
 }
 
+Core::DefWord::DefWord(const std::string& str)
+: str(str) {
+}
+
 bool Core::isFavorite(Word *word) {
   return word->IsFavorite;
 }
@@ -353,7 +357,7 @@ Core::Definition *Core::addDefinition(std::string defString, Word *word) {
 void Core::ratingCleanUp() {
     for (std::vector<Core::Definition*>::iterator defPtr = defCollection.begin(); defPtr != defCollection.end(); ++defPtr) (*defPtr)->rating = 0;
 }
-std::string extractFirstWord(const std::string &inputString) {
+std::string Core::extractFirstWord(const std::string &inputString) {
   std::string firstWord;
   int position = inputString.find('\t');
   if (position != std::string::npos) {
@@ -362,7 +366,7 @@ std::string extractFirstWord(const std::string &inputString) {
   else firstWord = inputString;
   return firstWord;
 }
-std::string extractSecondWord(const std::string &inputString) {
+std::string Core::extractSecondWord(const std::string &inputString) {
   std::string secondWord;
   int position = inputString.find('\t');
   if (position != std::string::npos) {
