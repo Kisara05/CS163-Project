@@ -1,5 +1,5 @@
 #ifndef HELPER_H
-#define HELPER .H
+#define HELPER_H
 
 #include <iostream>
 #include <string>

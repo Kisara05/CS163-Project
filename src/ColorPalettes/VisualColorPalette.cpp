@@ -8,9 +8,6 @@ using namespace std;
 const Color VisualColor::OPTIONS[] = {
     Color({87, 205, 230, 255}), Color({251, 188, 4, 255}),
     Color({238, 103, 92, 255}), Color({52, 168, 83, 255})};
-// const Color VisualColor::OPTIONS[] = {
-//     Color({244, 113, 162, 255}), Color({255, 213, 16, 255}),
-//     Color({242, 52, 52, 255}), Color({16, 134, 255, 255})};
 
 Color VisualColor::mColors[] = {
     VisualColor::OPTIONS[0], VisualColor::OPTIONS[1], VisualColor::OPTIONS[2],
